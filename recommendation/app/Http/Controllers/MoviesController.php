@@ -19,14 +19,17 @@ use App\Rate;
 class MoviesController extends Controller 
 {
 
-public function index(Request $request, Movie $movie,Rate $rate){
-        $movies = $movie->where('id','>',50)->paginate(12);
+    public function index(Request $request, Movie $movie,Rate $rate){
+        $movies = $movie->where('id','>',50)->paginate(10);
+        if ($request->ajax()) {
+            return view('movies', array("item" => $movies));
+        }
         $request->session()->put('option', '1');
 	    // print_r($movies);
 	    // die();
 	    $page = isset($_GET['page'])  ? intval($_GET['page']) : 0;
         if ($page <= 0) $page = 0;
-        $limit = 12;
+        $limit = 10;
         $total = $users = DB::table('movies')->count('id');
         $offset = $page*$limit;
         if ($offset < $total) {
@@ -46,8 +49,24 @@ public function index(Request $request, Movie $movie,Rate $rate){
         $data['rate'] = $movie->findMany($r);
 
         $request->session()->put('pageSession', $page);
-        return view('movies',$data);
+        return view('step1',$data);
      }
+
+    public function ajaxPagination(Request $request)
+
+    {
+
+        $movies = $movie->where('id','>',50)->paginate(10);
+
+        if ($request->ajax()) {
+
+            return view('data', compact('items'));
+
+        }
+
+        return view('items',compact('items'));
+
+    }
 
      //
      public function view(Request $request,Movie $movie,Rate $rate){
@@ -91,7 +110,7 @@ public function index(Request $request, Movie $movie,Rate $rate){
         }
         $page = isset($_GET['page'])  ? intval($_GET['page']) : 0;
         if ($page <= 0) $page = 0;
-        $limit = 12;    
+        $limit = 10;    
         $offset = $page*$limit;
         $recommend = $request->session()->get('recommend');
         $list = $recommend['itemScores'];
@@ -143,7 +162,9 @@ public function index(Request $request, Movie $movie,Rate $rate){
         //print_r($genres);
         //die();
         $data['rate'] = $movie->findMany($r);
-        $data['item'] = $movie->wherein('MovieLensId',$i)->whereNotIn('MovieLensId',$blacklist)->where(function ($query) use ($most_genre){return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);})->paginate(12);
+        $data['item'] = $movie->wherein('MovieLensId',$i)->whereNotIn('MovieLensId',$blacklist)->where(function ($query) use ($most_genre){
+            return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
+        })->paginate(10);
         $request->session()->put('pageSession', $page);
         return view('recommend',$data);
     }

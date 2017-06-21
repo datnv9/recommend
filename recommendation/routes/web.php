@@ -33,6 +33,7 @@ Route::get('/movies/{id}', [
 
 Route::get('/', [
     'middleware' => 'auth',
+    'as' => 'pagination',
     'uses' => 'MoviesController@index'
 ])->name('index');
 
@@ -45,6 +46,8 @@ Route::any('deleteallhistory/{id}',[
     'middleware' => 'auth',
     'uses' => 'MoviesController@deleteallhistory'
 ]);
+
+Route::get('ajax-pagination',array('as'=>'pagination','uses'=>'MoviesController@ajaxPagination'));
 
 Auth::routes();
 
