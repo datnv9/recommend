@@ -16,6 +16,11 @@ Route::post('/rate', [
     'uses' => 'MoviesController@store'
 ]);
 
+Route::get('/dynamic', [
+    'middleware' => 'auth',
+    'uses' => 'MoviesController@dynamic'
+]);
+
 Route::get('/result', [
     'middleware' => 'auth',
     'uses' => 'MoviesController@view'
@@ -26,9 +31,9 @@ Route::any('/recommend', [
     'uses' => 'MoviesController@recommend'
 ])->name('recommend');;
 
-Route::get('/movies/{id}', [
+Route::get('/movies', [
     'middleware' => 'auth',
-    'uses' => 'MoviesController@show'
+    'uses' => 'MoviesController@detail'
 ]);
 
 Route::get('/', [
@@ -46,8 +51,6 @@ Route::any('deleteallhistory/{id}',[
     'middleware' => 'auth',
     'uses' => 'MoviesController@deleteallhistory'
 ]);
-
-Route::get('ajax-pagination',array('as'=>'pagination','uses'=>'MoviesController@ajaxPagination'));
 
 Auth::routes();
 

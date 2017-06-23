@@ -22,10 +22,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
-<script src="/js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- fonts -->
 <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
@@ -35,6 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/intro.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- //fonts -->
 </head>
   <body>
@@ -96,8 +94,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- NAVBAR END -->
 	<!-- MAIN BEGIN -->
 	<div class="container-fluid main-wrapper">
-		<script>
-		</script>
+		<div id="myModal" class="modal fade" role="dialog">
+			
+		</div>
 		
 		<div class="row">
 			<!-- LEFT BEGIN -->
@@ -109,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="page-header">
 					<div class="row">
                 		<div class="col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-							<h3>Suggested Movies</h3>
+							<!--<h3>Suggested Movies</h3>-->
 						</div>
 					</div>
 					
@@ -117,24 +116,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 				
 				<div class="main-grids">
-					<div class="clearfix top-grids"  >
-						<?php foreach ($item as $i=>$value):?>
-						<div class="resent-grid slider-top-grids" style="height: 30vh;">
-							<div class="resent-grid-img bxslider">
-								<a href="/movies/<?=$value->id;?>"><img src="https://image.tmdb.org/t/p/w500/<?php echo $value->Image;?>" alt="" /></a>
-							</div>
-							<div class="resent-grid-info">
-								<h4><a href="/movies/<?=$value->id;?>" class="title title-info"><?php echo $value->id.". ".$value->MovieName;?></a><br></h4>
-								<p class="author"><?php echo $value->getCategory($value->id);?></p>
-							</div>
-						</div>
-						<?php endforeach; ?>
+					<div class="clearfix top-grids" id="dynamic-list" >
+						
 					</div>
 				</div>
 			</div>
 			<!-- LEFT END -->
 			<div class="main col-lg-1 col-md-3">
-				<h5 class="has-tooltip" title="Đây là danh sách các phim bạn đã đánh giá">History</h5>
+				<h5 class="has-tooltip" title="Đây là danh sách các phim bạn đã đánh giá">History ({{$rate->count()}})</h5>
 				<a class='btn btn-sm btn-danger' href='/deleteallhistory/1'>Clear History</a>
 				<br>
 				<br>
@@ -178,6 +167,7 @@ $(window).on('hashchange', function() {
 });
 $(document).ready(function(){
   	//$('.bxslider').bxSlider();
+	getDynamic();
 	$(document).on('click', '.pagination a',function(event)
 
     {
@@ -226,6 +216,38 @@ $(document).ready(function(){
 			});
 		})
 });
+
+function getMovieDetail(id){
+	$.ajax({
+		url: '<?=URL("/");?>/movies',
+		type: 'get',
+		data: {id: id}
+	})
+	.done(function(data){
+		//console.log(data);
+		$("#myModal").empty().html(data);
+		jQuery.noConflict();
+		$("#myModal").modal("show");
+	})
+	.fail(function(msg){
+		alert('No response from server',msg);
+	});
+}
+
+function getDynamic(blackList){
+	$.ajax({
+		url: '<?=URL("/");?>/dynamic',
+		type: 'get',
+		data: {blacklist: blackList},
+	})
+	.done(function(data){
+		//console.log(data);
+		$("#dynamic-list").empty().html(data);
+	})
+	.fail(function(msg){
+		alert('No response from server',msg);
+	});
+}
 
 function getData(page){
 
