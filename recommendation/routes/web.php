@@ -16,6 +16,11 @@ Route::post('/rate', [
     'uses' => 'MoviesController@store'
 ]);
 
+Route::get('/history', [
+    'middleware' => 'auth',
+    'uses' => 'MoviesController@getHistory'
+]);
+
 Route::get('/dynamic', [
     'middleware' => 'auth',
     'uses' => 'MoviesController@dynamic'
@@ -38,7 +43,6 @@ Route::get('/movies', [
 
 Route::get('/', [
     'middleware' => 'auth',
-    'as' => 'pagination',
     'uses' => 'MoviesController@index'
 ])->name('index');
 

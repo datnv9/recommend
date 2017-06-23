@@ -50,7 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="slogan" id="slogan">
 				<h4 class="slogan-title" >CHƯƠNG TRÌNH GIỚI THIỆU PHIM TỰ ĐỘNG</h4>
-				<h4>Bước 1: Hãy đánh giá các phim bạn đã xem bên dưới (càng nhiều càng tốt)</h4>
+				<h4>Bước 2: Sau đây là danh sách các phim được phần mềm giới thiệu dựa trên Bước 1. Mời bạn hãy đánh giá tiếp</h4>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
                                 
@@ -102,7 +102,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- LEFT BEGIN -->
 			<div class="main col-lg-11 col-md-9">
 				<div class="item-lists">
-					@include('movies')
+					@include('movies2')
 				</div>
 
 				<div class="page-header">
@@ -223,9 +223,11 @@ function getHistory(){
 		$('#history').empty().html(data);
 		if($('#rate_count').val()<5){
 			$('#btn_recommend').prop('disabled', true);
+			$('#btn_result').prop('disabled', true);
 		}
 		else {
 			$('#btn_recommend').prop('disabled', false);
+			$('#btn_result').prop('disabled', false);
 		}
 	})
 	.fail(function(msg){

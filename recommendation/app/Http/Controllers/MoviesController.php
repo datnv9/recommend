@@ -39,27 +39,28 @@ class MoviesController extends Controller
         if ($request->ajax()) {
             return view('movies', array("item1" => $movies1, "item2" => $movies2));
         }
+            
         $request->session()->put('option', '1');
         if (!$request->session()->has('genres_table')){
             $genres_table = [];
-            $genres_table['Action'] = array("good" => 0, "bad" => 0);
-            $genres_table['Adventure'] = array("good" => 0, "bad" => 0);
-            $genres_table['Animation'] = array("good" => 0, "bad" => 0);
-            $genres_table['Children'] = array("good" => 0, "bad" => 0);
-            $genres_table['Comedy'] = array("good" => 0, "bad" => 0);
-            $genres_table['Crime'] = array("good" => 0, "bad" => 0);
-            $genres_table['Documentary'] = array("good" => 0, "bad" => 0);
-            $genres_table['Drama'] = array("good" => 0, "bad" => 0);
-            $genres_table['Fantasy'] = array("good" => 0, "bad" => 0);
-            $genres_table['Film-Noir'] = array("good" => 0, "bad" => 0);
-            $genres_table['Horror'] = array("good" => 0, "bad" => 0);
-            $genres_table['Musical'] = array("good" => 0, "bad" => 0);
-            $genres_table['Mystery'] = array("good" => 0, "bad" => 0);
-            $genres_table['Romance'] = array("good" => 0, "bad" => 0);
-            $genres_table['Sci-Fi'] = array("good" => 0, "bad" => 0);
-            $genres_table['Thriller'] = array("good" => 0, "bad" => 0);
-            $genres_table['War'] = array("good" => 0, "bad" => 0);
-            $genres_table['Western'] = array("good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>"Action","good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Adventure',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Animation',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Children',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Comedy',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Crime',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Documentary',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Drama',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Fantasy',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Film-Noir',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Horror',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Musical',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Mystery',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Romance',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Sci-Fi',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Thriller',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'War',"good" => 0, "bad" => 0);
+            $genres_table[] = array("genre"=>'Western',"good" => 0, "bad" => 0);
             $request->session()->put('genres_table',$genres_table);
             
         }
@@ -79,37 +80,37 @@ class MoviesController extends Controller
         $data['item2'] = $movies2;
         $data['page'] = $page;
         $data['next'] = $offset < $total;
-        $uid = Auth::id();
-        $result = $rate->where('user_id',$uid)->where('option',1)->get();
-        $r = array();
-        foreach ($result as $value ) {
-           $r[] = $value->video_id;
-        }
-        $data['rate'] = $movie->findMany($r);
         $request->session()->put('pageSession', $page);
         return view('step1',$data);
      }
 
-    public function dynamic(Request $request, Movie $movie){
+    public function dynamic(Request $request, Movie $movie, Rate $rate){
         if ($request->ajax()) {
             $genres_table = $request->session()->get('genres_table');
-            if ($request->session()->has('seen_list')) $blacklist = $request->session()->get('seen_list');
-            else $blacklist = array();
+            // if ($request->session()->has('seen_list')) $blacklist = $request->session()->get('seen_list');
+            // else $blacklist = array();
             $templist = $request->input('blacklist');
+            
+            $blacklist = array();
+            foreach($rate->where('option',$request->session()->get('option'))->get() as $r){
+                
+                $blacklist [] = Movie::find($r->video_id)->MovieLensId;
+            }
             if ($templist) $blacklist = array_merge($blacklist, $templist);
             $showlist = array();
             usort($genres_table,array($this,'compare'));
             $count = 0;
             $data = array();
             $movies = array();
-            $genres = array_keys($genres_table);
-            foreach ($genres as $genre){
-                if ($count == 10) break;
-                $score = $genres_table[$genre];         
-                $condition = (($score['good'] - $score['bad']) > 0) ? '0' : '1';
-                $m = $movie->where('Country',$condition)->where(function ($query) use ($most_genre){
-                    return $query->where('Genre1',$genre)->orWhere('Genre2',$genre)->orWhere('Genre3',$genre);
-                })->whereNotIn('MovieLensId',array_merge($blacklist,$showlist))->first();
+            foreach ($genres_table as $genre){
+                if ($count == 10) break;         
+                $condition = (($genre['good'] - $genre['bad']) > 0) ? '0' : '1';
+                $m = $movie->where('Country',$condition)->where(function ($query) use ($genre){
+                    return $query->where('Genre1',$genre['genre'])->orWhere('Genre2',$genre['genre'])->orWhere('Genre3',$genre['genre']);
+                })->whereNotIn('MovieLensId',array_merge($blacklist,$showlist))->inRandomOrder()->first();
+                if (!$m){
+                    continue;
+                } 
                 $movies[] = $m;
                 $showlist[] = $m->MovieLensId;
                 $count++;
@@ -159,24 +160,17 @@ class MoviesController extends Controller
         {
             return redirect()->route('index');
         }
-        $page = isset($_GET['page'])  ? intval($_GET['page']) : 0;
-        if ($page <= 0) $page = 0;
-        $limit = 10;    
-        $offset = $page*$limit;
         $recommend = $request->session()->get('recommend');
         $list = $recommend['itemScores'];
-        
-        // todo: change recommend data
-        $data['item'] = $movie->paginate(12);
-        $data['page'] = $page;
-        $total = count($data['item']);
-        $data['next'] = $offset < $total;
-        $uid = Auth::id();
-        $result = $rate->where('user_id',$uid)->where('option',2)->get();
-        $history = $rate->where('user_id',$uid)->where('option',1)->get();
-        $r = array();
-        $genres = array();
+        $i = array();
+        foreach($list as $value){
+            $i[] = $value->item;
+        }
         $blacklist = array();
+        $uid = Auth::id();
+        $history = $rate->where('user_id',$uid)->where('option','1')->get();
+        
+        $genres = array();
         foreach ($history as $value){
             $m = Movie::find($value->video_id);
             if ($value->rating > 3) {
@@ -199,25 +193,44 @@ class MoviesController extends Controller
                             $genres[$m->Genre3] = 1;
                     }
             }
-            $blacklist [] = $value->video_id;
+            $blacklist [] = $m->MovieLensId;
         }
+        $data['item'] = $movie->wherein('MovieLensId',$i)->whereNotIn('MovieLensId',$blacklist)
+                                // ->where(function ($query) use ($most_genre){
+                                //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
+                                // })
+                                ->paginate(10);
+        if ($request->ajax()) {
+            return view('movies2', $data);
+        }
+        $page = isset($_GET['page'])  ? intval($_GET['page']) : 0;
+        if ($page <= 0) $page = 0;
+        $limit = 10;    
+        $offset = $page*$limit;
+        
+        // todo: change recommend data
+        arsort($genres);
+        $most_genre = key($genres);
+        //print_r($genres);
+        //die();
+        
+        $data['page'] = $page;
+        $total = count($data['item']);
+        $data['next'] = $offset < $total;
+        $request->session()->put('pageSession', $page);
+        return view('step2',$data);
+    }
+
+    public function getHistory(Request $request, Rate $rate, Movie $movie){
+        $uid =  Auth::id();
+        $result = $rate->where('user_id',$uid)->where('option',$request->session()->get('option'))->get();
+        $r = array();
         foreach ($result as $value ) {
             $r[] = $value->video_id;
         }
-        arsort($genres);
-        $most_genre = key($genres);
-        $i = array();
-        foreach($list as $value){
-            $i[] = $value->item;
-        }
-        //print_r($genres);
-        //die();
+        $data = array();
         $data['rate'] = $movie->findMany($r);
-        $data['item'] = $movie->wherein('MovieLensId',$i)->whereNotIn('MovieLensId',$blacklist)->where(function ($query) use ($most_genre){
-            return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
-        })->paginate(10);
-        $request->session()->put('pageSession', $page);
-        return view('recommend',$data);
+        return view('history',$data);
     }
 
      public function getRateVideo(Rate $rate, Movie $movie) {
@@ -243,23 +256,22 @@ class MoviesController extends Controller
         $option = $request->session()->get('option');
         
         $genres_table = $request->session()->get('genres_table');
-        $genres = array_keys($genres_table);
         $m = Movie::find($id);
-        if (in_array($m->Genre1, $genres)) {
-            $g = $genres_table[$m->Genre1];
-            if ($rating > 3) $g['good']++;
-            else if ($rating < 3) $g['bad']++;
+        foreach ($genres_table as $genre){
+            if ($m->Genre1 == $genre['genre']) {
+                if ($rating > 3) $genre['good']++;
+                else if ($rating < 3) $genre['bad']++;
+            }
+            if ($m->Genre2 == $genre['genre']) {
+                if ($rating > 3) $genre['good']++;
+                else if ($rating < 3) $genre['bad']++;
+            }
+            if ($m->Genre2 == $genre['genre']) {
+                if ($rating > 3) $genre['good']++;
+                else if ($rating < 3) $genre['bad']++;
+            }
         }
-        if (in_array($m->Genre2, $genres)) {
-            $g = $genres_table[$m->Genre2];
-            if ($rating > 3) $g['good']++;
-            else if ($rating < 3) $g['bad']++;
-        }
-        if (in_array($m->Genre3, $genres)) {
-            $g = $genres_table[$m->Genre3];
-            if ($rating > 3) $g['good']++;
-            else if ($rating < 3) $g['bad']++;
-        }
+        
 
         $update = $rate->where('user_id','=',$uid)->where('video_id','=',$id)->get();
 
