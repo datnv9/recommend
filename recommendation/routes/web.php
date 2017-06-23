@@ -34,7 +34,8 @@ Route::get('/result', [
 Route::any('/recommend', [
     'middleware' => 'auth',
     'uses' => 'MoviesController@recommend'
-])->name('recommend');;
+])->name('recommend');
+;
 
 Route::get('/movies', [
     'middleware' => 'auth',
@@ -51,7 +52,7 @@ Route::any('/search', [
     'uses' => 'MoviesController@search'
 ]);
 
-Route::any('deleteallhistory/{id}',[
+Route::any('deleteallhistory/{id}', [
     'middleware' => 'auth',
     'uses' => 'MoviesController@deleteallhistory'
 ]);

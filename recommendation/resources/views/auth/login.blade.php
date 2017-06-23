@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('layouts.app') @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -14,26 +12,20 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>                                @if ($errors->has('email'))
+                                <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                    </span> @endif
                             </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 
                             <div class="col-md-6">
-                                <input id="password" type="hidden" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
+                                <input id="password" type="hidden" class="form-control" name="password" required> @if ($errors->has('password'))
+                                <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                                    </span> @endif
                             </div>
                         </div>
 
@@ -67,11 +59,11 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-function getEmail(){
-    $("#password").val('12345678');
-    var name = $('#email').val();
-    $('#email').val(name+'@email.com');
-    $('#form-login').submit();
-}
+    function getEmail() {
+        $("#password").val('12345678');
+        var name = $('#email').val();
+        $('#email').val(name + '@email.com');
+        $('#form-login').submit();
+    }
 </script>
 @endsection
