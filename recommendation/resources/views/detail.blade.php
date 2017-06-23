@@ -104,18 +104,20 @@
 				}
 				//alert( "Rating " + msg );
 				if (option == 1) {
-						var blacklist = JSON.parse($('#blacklist').val());
-						console.log(typeof(blacklist));
-						getDynamic(blacklist);
+						var blacklist;
+						if ($('#blacklist').val())  blacklist = JSON.parse($('#blacklist').val());
+						console.log(blacklist);
+						if (blacklist) getDynamic(blacklist);
 						getHistory();
 						jQuery.noConflict();
 						$("#myModal").modal("hide");
 						
 				}
 				else {
-					var blacklist = JSON.parse($('#blacklist').val());
-					console.log(typeof(blacklist));
-					getDynamic(blacklist);
+					var blacklist;
+					if ($('#blacklist').val()) blacklist = JSON.parse($('#blacklist').val());
+					console.log(blacklist);
+					if (blacklist) getDynamic(blacklist);
 					getHistory();
 					jQuery.noConflict();
 					$("#myModal").modal("hide");

@@ -81,8 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- LOGOUT END -->
 				<img src="/images/13.png" id="help" class="helper-icon">
 				<div class="navbar-right top-search">
-					<form class="navbar-form navbar-right" data-intro="Tìm kiếm phim tại đây" data-step="1" action="/search" method="post">
-						{{ csrf_field() }}
+					<form class="navbar-form navbar-right" data-intro="Tìm kiếm phim tại đây" data-step="1" action="/search" method="get">
                                                 <!--<a id="sampledata" class="help">Tìm kiếm phim tại đây</a>-->
                                                 <input type="text" class="form-control" title="Tìm kiếm phim tại đây	" placeholder="Search..." name="key">
 						<input type="submit" value=" ">
@@ -112,13 +111,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 					</div>
 					
-				</div>
-		
-				
-				<div class="main-grids">
-					<div class="clearfix top-grids" id="dynamic-list" >
-						
-					</div>
 				</div>
 			</div>
 			<!-- LEFT END -->

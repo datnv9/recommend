@@ -199,7 +199,7 @@ class MoviesController extends Controller
                                 // ->where(function ($query) use ($most_genre){
                                 //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
                                 // })
-                                ->paginate(10);
+                                ->paginate(20);
         if ($request->ajax()) {
             return view('movies2', $data);
         }
@@ -302,13 +302,16 @@ class MoviesController extends Controller
         if (!$key) {
             $key = isset($_GET['key'])?$_GET['key']:'';
         }
-        $limit = 15;
+        $limit = 20;
         $offset = $page*$limit;
-        $data['item'] = $movie->orWhere('Genre1','like','%'.$key.'%')->orWhere('Genre2','like','%'.$key.'%')->orWhere('Genre3','like','%'.$key.'%')->orWhere('MovieName','like','%'.$key.'%')->skip($offset)->take($limit)->get();
+        $data['item'] = $movie->orWhere('Genre1','like','%'.$key.'%')->orWhere('Genre2','like','%'.$key.'%')->orWhere('Genre3','like','%'.$key.'%')->orWhere('MovieName','like','%'.$key.'%')->skip($offset)->take($limit)->paginate(20);
         $data['page'] = $page;
         $total = count($data['item']);
         $data['next'] = $offset < $total;
         $data['key'] = isset($_POST['key'])?$_POST['key']:$_GET['key'];
+        if ($request->ajax()) {
+            return view('movies2', $data);
+        }
         return view('search',$data);
     }
 
