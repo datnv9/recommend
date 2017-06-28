@@ -205,6 +205,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 			});
 		})
+<<<<<<< HEAD
+});
+
+function getMovieDetail(id, row){
+	$.ajax({
+		url: '<?=URL("/");?>/movies',
+		type: 'get',
+		data: {id: id, row: row}
+	})
+	.done(function(data){
+		//console.log(data);
+		$("#myModal").empty().html(data);
+		jQuery.noConflict();
+		$("#myModal").modal("show");
+	})
+	.fail(function(msg){
+		alert('No response from server',msg);
+	});
+}
+
+function getHistory(){
+	$.ajax({
+		url: '<?=URL("/");?>/history',
+		type: 'get'
+	})
+	.done(function(data){
+		console.log(data);
+		$('#history').empty().html(data);
+		if($('#rate_count').val()<5){
+			$('#btn_recommend').prop('disabled', true);
+		}
+		else {
+			$('#btn_recommend').prop('disabled', false);
+		}
+	})
+	.fail(function(msg){
+		alert('No response from server',msg);
+=======
+>>>>>>> eaa4de9eb14fee174547e621666d4e91136bfc74
 	});
 
 	function getMovieDetail(id) {

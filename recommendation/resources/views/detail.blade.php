@@ -51,6 +51,7 @@
 									<div class="help-button-bottom">
 										<p><a id="1" class="rate play-icon popup-with-zoom-anim">1. Bad</a></p>
 									</div>
+									<input type="hidden" id="row" name="row" value="<?=$row?>"/>
 								</div>
 								<!-- END RATING -->
 							</div>
@@ -109,7 +110,8 @@
 						var blacklist;
 						if ($('#blacklist').val())  blacklist = JSON.parse($('#blacklist').val());
 						console.log(blacklist);
-						if (blacklist) getDynamic(blacklist);
+						var rowValue = $('#row').val();
+						if (blacklist && rowValue != 2) getDynamic(blacklist);
 						getHistory();
 						jQuery.noConflict();
 						$("#myModal").modal("hide");
