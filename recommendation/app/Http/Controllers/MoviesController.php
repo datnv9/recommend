@@ -207,7 +207,7 @@ class MoviesController extends Controller
             $rated_count++;
         }
         $average_wrong = $total_wrong/$rated_count;
-        if ($average_wrong > 0.6) return "Khong the du doan! Do lech trung binh: ".$average_wrong;
+        if ($average_wrong > 1) return "Khong the du doan! Do lech trung binh: ".$average_wrong;
         $data['item'] = $movie->wherein('MovieLensId', $i)->whereNotIn('MovieLensId', $blacklist)
                               // ->where(function ($query) use ($most_genre){
                               //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
