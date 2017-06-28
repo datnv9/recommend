@@ -134,6 +134,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </html>
 <script language="javascript">
+	var RatedFilms = [];
+	var getRates = [];
     $(window).on('hashchange', function() {
 
         if (window.location.hash) {
@@ -223,6 +225,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             .done(function(data) {
                 console.log(data);
                 $('#history').empty().html(data);
+				$('.RatedFilm').each(function(){
+						console.log("Rated Film:" + $(this).val());
+						var id = $(this).val();
+						RatedFilms.push(id);
+						
+				});
+
+				$('.stars').each(function(){
+						console.log("get Rate:" + $(this).text());
+						var rate = $(this).text();
+						getRates.push(rate);
+						
+				});
+
+				for(var index = 0; index < RatedFilms.length; index++)
+				{
+					var text = '';
+					// text = $('#'+RatedFilms[index]).text();
+					// console.log("Text:" + text);
+					$('#p'+RatedFilms[index]).text(' ' + getRates[index]);
+					$('#'+RatedFilms[index]).css('color', 'red');
+				}
                 if ($('#rate_count').val() < 1) {
                     $('#btn_recommend').prop('disabled', true);
                     $('#btn_result').prop('disabled', true);

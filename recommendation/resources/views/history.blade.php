@@ -11,7 +11,8 @@
                 <img class="media-object mov-img" src="https://image.tmdb.org/t/p/w500/<?= $mov->Image;?>">
             </a>
             <small class="stars">	<?=$mov->getRate($mov->id,$option);?> </small>
-        
+            <input type="hidden" class="RatedFilm" value="<?=$mov->id;?>"/>
+            
         </div>
     </div>
     <?php } ?>
