@@ -1,7 +1,11 @@
+<div class="col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
+	<h3>Suggested Movies</h3>
+</div>
+<div class="clearfix"></div>
 <?php foreach ($item as $value) :?>
 	<div class="resent-grid slider-top-grids" style="height: 33vh;">
 		<div class="resent-grid-img bxslider">
-			<a onclick="getMovieDetail(<?=$value->id;?>)"><img src="https://image.tmdb.org/t/p/w500/<?php echo $value->Image;?>" alt="" /></a>
+			<a onclick="getMovieDetail(<?=$value->id;?>,2)"><img src="https://image.tmdb.org/t/p/w500/<?php echo $value->Image;?>" alt="" /></a>
 		</div>
 		<div class="resent-grid-info">
 			<h4><a onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo $value->id.". ".$value->MovieName;?></a><br></h4>

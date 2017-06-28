@@ -324,6 +324,7 @@ class MoviesController extends Controller
             $movie = Movie::find($id); 
             $data['movie'] = $movie;
             $data['option'] = $option;
+            $data['row'] = $request->input('row');
             return view('detail',$data);
         }
      }

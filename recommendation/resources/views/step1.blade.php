@@ -195,11 +195,11 @@ $(document).ready(function(){
 		})
 });
 
-function getMovieDetail(id){
+function getMovieDetail(id, row){
 	$.ajax({
 		url: '<?=URL("/");?>/movies',
 		type: 'get',
-		data: {id: id}
+		data: {id: id, row: row}
 	})
 	.done(function(data){
 		//console.log(data);
