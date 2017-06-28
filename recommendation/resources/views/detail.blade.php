@@ -23,7 +23,9 @@
 			<div class="container-fluid main">
 				<div class="col-sm-12">
 					<div class="page-header">
-						<h2></h2>
+						@if ($option == '2')
+							<h4>Predict: {{$movie->AverageRating}}</h4>
+						@endif
 					</div>
 					<div class="clearfix">
 						<div class="row">

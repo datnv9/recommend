@@ -173,16 +173,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         });
         //introJs().start();
-        console.log({
-            {
-                Auth::id()
-            }
-        });
-        user = {
-            {
-                Auth::id()
-            }
-        };
+        console.log({{Auth::id()}});
+        user = {{Auth::id()}};
         $('#btn_recommend').click(function() {
             //alert('click');
             $.ajax({
