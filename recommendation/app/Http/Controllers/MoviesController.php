@@ -238,6 +238,7 @@ class MoviesController extends Controller
         }
         $data = array();
         $data['rate'] = $movie->findMany($r);
+        $data['option'] = $request->session()->get('option');
         return view('history', $data);
     }
 
@@ -293,10 +294,10 @@ class MoviesController extends Controller
         }
         
 
-        $update = $rate->where('user_id', '=', $uid)->where('video_id', '=', $id)->get();
+        $update = $rate->where('user_id', '=', $uid)->where('video_id', '=', $id)->where('option', '=', $option)->get();
 
         if (count($update) != 0) {
-            $rate->where('user_id', '=', $uid)->where('video_id', '=', $id)->update(array('rating' =>$rating));
+            $rate->where('user_id', '=', $uid)->where('video_id', '=', $id)->where('option', '=', $option)->update(array('rating' =>$rating));
             echo session()->get('pageSession');
             return;
         }
@@ -343,12 +344,8 @@ class MoviesController extends Controller
             $movie = Movie::find($id);
             $data['movie'] = $movie;
             $data['option'] = $option;
-<<<<<<< HEAD
             $data['row'] = $request->input('row');
             return view('detail',$data);
-=======
-            return view('detail', $data);
->>>>>>> eaa4de9eb14fee174547e621666d4e91136bfc74
         }
     }
 

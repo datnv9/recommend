@@ -83,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<?php foreach ($movie as $item) { ?>
 					<tr>
 						<td><?=$item->MovieName;?></td>
-						<td><?=$item->getRate($item->id);?></td>
+						<td><?=$item->getRate($item->id,2);?></td>
 						<td style="font-family: arial"><?=$item->AverageRating; ?></td>
 					</tr>
 					<?php } ?>

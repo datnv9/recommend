@@ -131,11 +131,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					</div>
 				</div>
+
+				<div class="clearfix text-center">
+					<button id="btnPreview" class="btn btn-success has-tooltip">Preview</button>
+					<button id="btnNext" class="btn btn-success has-tooltip">Next</button>
+				</div>
+				
+				<div class="clearfix" id="preview"> 
+				
+				</div>
 			</div>
 			<!-- LEFT END -->
 			<div id="history" class="main col-lg-1 col-md-3">
 
 			</div>
+
+			
 		</div>
 	</div>
 	<!-- MAIN END -->
@@ -143,6 +154,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </html>
 <script language="javascript">
+	var oldDynamic = [];
+	var oldDynamicLength;
 	$(window).on('hashchange', function () {
 
 		if (window.location.hash) {
@@ -164,6 +177,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 	$(document).ready(function () {
 		//$('.bxslider').bxSlider();
+		$('#btnPreview').click(function(){
+			if (oldDynamicLength <= 1 ) oldDynamicLength = oldDynamic.length;
+			console.log("OldDynamic Length : " + oldDynamicLength);
+			$("#preview").empty().html(oldDynamic[oldDynamicLength - 2]);
+			oldDynamicLength--;
+			
+		});
+
+		$('#btnNext').click(function(){
+			console.log("OldDynamic Length : " + oldDynamicLength);
+			$("#preview").empty().html(oldDynamic[oldDynamicLength]);
+			oldDynamicLength++;
+			if (oldDynamicLength >= oldDynamic.length ) oldDynamicLength = 0;
+		});
+
 		getDynamic();
 		getHistory();
 		$(document).on('click', '.pagination a', function (event) {
@@ -205,7 +233,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 			});
 		})
-<<<<<<< HEAD
 });
 
 function getMovieDetail(id, row){
@@ -242,26 +269,6 @@ function getHistory(){
 	})
 	.fail(function(msg){
 		alert('No response from server',msg);
-=======
->>>>>>> eaa4de9eb14fee174547e621666d4e91136bfc74
-	});
-
-	function getMovieDetail(id) {
-		$.ajax({
-				url: '<?=URL("/");?>/movies',
-				type: 'get',
-				data: {
-					id: id
-				}
-			})
-			.done(function (data) {
-				//console.log(data);
-				$("#myModal").empty().html(data);
-				jQuery.noConflict();
-				$("#myModal").modal("show");
-			})
-			.fail(function (msg) {
-				alert('No response from server', msg);
 			});
 	}
 
@@ -295,6 +302,8 @@ function getHistory(){
 			.done(function (data) {
 				//console.log(data);
 				$("#dynamic-list").empty().html(data);
+				oldDynamic.push(data);
+				oldDynamicLength = oldDynamic.length;
 			})
 			.fail(function (msg) {
 				alert('No response from server', msg);

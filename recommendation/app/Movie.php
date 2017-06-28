@@ -20,8 +20,8 @@ class Movie extends Model
         }
     }
     
-    public function getRate($video_id) {
-         $r = Rate::where('video_id',$video_id)->get()->first();
+    public function getRate($video_id,$option) {
+         $r = Rate::where('video_id',$video_id)->where('option',$option)->get()->first();
          return $this->rating($r->rating);
     }
     

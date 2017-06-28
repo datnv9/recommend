@@ -1,4 +1,14 @@
-<div class="col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
+<div class="clearfix"></div>
+<!--<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+  </ul>
+</div>-->
+<div class="clearfix col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
 	<h3>Suggested Movies</h3>
 </div>
 <div class="clearfix"></div>
@@ -16,4 +26,5 @@
 <input type="hidden" id="blacklist" name="blacklist" value="{{$blacklist}}">
 
 <script>
+	
 </script>
