@@ -126,16 +126,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 
 
+				<div class="clearfix text-center">
+					<button id="btnPreview" class="btn btn-success has-tooltip">Preview</button>
+					<button id="btnNext" class="btn btn-success has-tooltip">Next</button>
+				</div>
+
 				<div class="main-grids">
 					<div class="clearfix top-grids" id="dynamic-list">
 
 					</div>
 				</div>
 
-				<div class="clearfix text-center">
-					<button id="btnPreview" class="btn btn-success has-tooltip">Preview</button>
-					<button id="btnNext" class="btn btn-success has-tooltip">Next</button>
-				</div>
+				
 				
 				<div class="clearfix" id="preview"> 
 				
@@ -178,18 +180,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	$(document).ready(function () {
 		//$('.bxslider').bxSlider();
 		$('#btnPreview').click(function(){
-			if (oldDynamicLength <= 1 ) oldDynamicLength = oldDynamic.length;
-			console.log("OldDynamic Length : " + oldDynamicLength);
-			$("#preview").empty().html(oldDynamic[oldDynamicLength - 2]);
 			oldDynamicLength--;
+			console.log("OldDynamic Length : " + oldDynamicLength);
+			if (oldDynamicLength < 1 ) oldDynamicLength = oldDynamic.length;
+			
+			$("#dynamic-list").empty().html(oldDynamic[oldDynamicLength - 1]);
+			
 			
 		});
 
 		$('#btnNext').click(function(){
-			console.log("OldDynamic Length : " + oldDynamicLength);
-			$("#preview").empty().html(oldDynamic[oldDynamicLength]);
 			oldDynamicLength++;
+			console.log("OldDynamic Length : " + oldDynamicLength);
 			if (oldDynamicLength >= oldDynamic.length ) oldDynamicLength = 0;
+			$("#dynamic-list").empty().html(oldDynamic[oldDynamicLength]);
+			
+			
+			//oldDynamicLength++;
 		});
 
 		getDynamic();
