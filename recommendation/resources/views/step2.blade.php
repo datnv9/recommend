@@ -223,7 +223,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             .done(function(data) {
                 console.log(data);
                 $('#history').empty().html(data);
-                if ($('#rate_count').val() < 5) {
+                if ($('#rate_count').val() < 1) {
                     $('#btn_recommend').prop('disabled', true);
                     $('#btn_result').prop('disabled', true);
                 } else {

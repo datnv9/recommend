@@ -194,7 +194,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				dataType: 'json',
 				contentType: 'application/json',
 				processData: false,
-				data: '{ "user":"' + user + '", "num": 500, "ratingFlag": 0 }',
+				data: '{ "user":"' + user + '", "num": 1000, "ratingFlag": 0 }',
 				success: function (data) {
 					$('#irecommend').val(JSON.stringify(data));
 					console.log("Data:", JSON.stringify(data));
