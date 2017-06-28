@@ -179,6 +179,9 @@ class MoviesController extends Controller
         $history = $rate->where('user_id', $uid)->where('option', '1')->get();
         
         $genres = array();
+
+        $rated_count = 0;
+        $total_wrong = 0;
         foreach ($history as $value) {
             $m = Movie::find($value->video_id);
             if ($value->rating > 3) {
@@ -199,7 +202,12 @@ class MoviesController extends Controller
                 }
             }
             $blacklist [] = $m->MovieLensId;
+
+            $total_wrong += abs($value->rating-$m->AverageRating);
+            $rated_count++;
         }
+        $average_wrong = $total_wrong/$rated_count;
+        if ($average_wrong > 0.6) return "Khong the du doan! Do lech trung binh: ".$average_wrong;
         $data['item'] = $movie->wherein('MovieLensId', $i)->whereNotIn('MovieLensId', $blacklist)
                               // ->where(function ($query) use ($most_genre){
                               //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
