@@ -692,10 +692,10 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 .resent-grid-info a.title {
     margin: 0;
     font-size: 16px;
-    font-weight: 600;*/
+    font-weight: 600;
     color: #525254;
-    /*overflow: hidden;*/
-    /*width: 20vw;
+    overflow: hidden;
+    width: 20vw;
 }
 
 .resent-grid-info a.title:hover {
