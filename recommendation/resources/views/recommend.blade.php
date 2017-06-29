@@ -108,9 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                         
 							<h2 class="has-tooltip" title="Đây là danh sách các bộ phim được gợi ý cho bạn. Bạn hãy chọn bộ phim bạn đã xem và đánh giá ">Recommended Movies</h2>
 						</div>
-						<div class="col-sm-4 clearfix text-center" >                 
-							<button data-step="3" data-intro="Click vào nút này để hiển thị kết quả dự đoán" class="btn btn-success" id="btn_result" onclick="document.location.href='/result'">Result</button>
-						</div>
+						
 						<div class="col-sm-4 text-right">
 							<ul class="pagination">{{ $item->links() }}</ul>
 						</div>
@@ -136,6 +134,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 						<?php endforeach; ?>
 					</div>
+				</div>
+
+				<div class="col-sm-4 clearfix text-center" >                 
+					<button data-step="3" data-intro="Click vào nút này để hiển thị kết quả dự đoán" class="btn btn-success" id="btn_result" onclick="document.location.href='/result'">Result</button>
 				</div>
 			</div>
 			<!-- LEFT END -->

@@ -202,11 +202,11 @@ class MoviesController extends Controller
             }
             $blacklist [] = $m->MovieLensId;
 
-            $total_wrong += abs($value->rating-$m->AverageRating);
+            $total_wrong += pow(2,floatval($value->rating)-floatval($m->AverageRating));
             $rated_count++;
         }
-        $average_wrong = $total_wrong/$rated_count;
-        if ($average_wrong > 1) return "<center><h1>KHÔNG THỂ DỰ ĐOÁN!</h1> <h1>Độ lệch trung bình: ".$average_wrong."</h1></center>";
+        $average_wrong = sqrt($total_wrong/$rated_count);
+        if ($average_wrong > 2) return "<center><h1>KHÔNG THỂ DỰ ĐOÁN!</h1> <h1>Độ lệch trung bình: ".$average_wrong."</h1></center>";
         $data['item'] = $movie->wherein('MovieLensId', $i)->whereNotIn('MovieLensId', $blacklist)
                               // ->where(function ($query) use ($most_genre){
                               //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
@@ -337,6 +337,8 @@ class MoviesController extends Controller
         $total = count($data['item']);
         $data['next'] = $offset < $total;
         $data['key'] = isset($_POST['key'])?$_POST['key']:$_GET['key'];
+        $option = $request->session()->get('option');
+        $data['option'] = $option;
         if ($request->ajax()) {
             return view('movies2', $data);
         }

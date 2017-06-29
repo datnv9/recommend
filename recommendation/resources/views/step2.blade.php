@@ -106,7 +106,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div id="myModal" class="modal fade" role="dialog">
 
         </div>
-
+        
         <div class="row">
             <!-- LEFT BEGIN -->
             <div class="main col-lg-11 col-md-9">
@@ -114,20 +114,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     @include('movies2')
                 </div>
 
-                <div class="page-header">
+                <!--<div class="page-header">
                     <div class="row">
                         <div class="col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-                            <!--<h3>Suggested Movies</h3>-->
+                            <h3>Suggested Movies</h3>
                         </div>
                     </div>
 
+                </div>-->
+
+                <div class="col-sm-12 clearfix text-center">                
+                    <button data-step="3" data-intro="Click vào nút này để hiển thị kết quả dự đoán" class="btn btn-success" id="btn_result" onclick="document.location.href='/result'">Result</button>
                 </div>
             </div>
+            
             <!-- LEFT END -->
             <div id="history" class="main col-lg-1 col-md-3">
 
             </div>
         </div>
+
+        
+
     </div>
     <!-- MAIN END -->
 </body>
@@ -232,20 +240,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						
 				});
 
-				$('.stars').each(function(){
+				$('.star-loop').each(function(){
 						console.log("get Rate:" + $(this).text());
-						var rate = $(this).text();
+						var rate = $(this).html();
 						getRates.push(rate);
 						
 				});
 
 				for(var index = 0; index < RatedFilms.length; index++)
 				{
-					var text = '';
+					var text = `<span class="glyphicon glyphicon-star"></span>
+                                <sp`
 					// text = $('#'+RatedFilms[index]).text();
 					// console.log("Text:" + text);
-					$('#p'+RatedFilms[index]).text(' ' + getRates[index]);
-					$('#'+RatedFilms[index]).css('color', 'red');
+					$('#p'+RatedFilms[index]).empty().html('' + getRates[index]);
+					$('#'+RatedFilms[index]).css('color', 'blue');
 				}
                 if ($('#rate_count').val() < 1) {
                     $('#btn_recommend').prop('disabled', true);
@@ -298,6 +307,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $(".item-lists").empty().html(data);
 
                     location.hash = page;
+
+
+				for(var index = 0; index < RatedFilms.length; index++)
+				{
+					var text = `<span class="glyphicon glyphicon-star"></span>
+                                <sp`
+					// text = $('#'+RatedFilms[index]).text();
+					// console.log("Text:" + text);
+					$('#p'+RatedFilms[index]).empty().html('' + getRates[index]);
+					$('#'+RatedFilms[index]).css('color', 'blue');
+				}
 
                 })
 

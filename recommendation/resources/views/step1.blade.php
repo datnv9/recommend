@@ -116,21 +116,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					@include('movies')
 				</div>
 
-				<div class="page-header">
+				<!--<div class="page-header">
 					<div class="row">
 						<div class="col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-							<!--<h3>Suggested Movies</h3>-->
+							<h3>Suggested Movies</h3>
 						</div>
 					</div>
 
-				</div>
+				</div>-->
 				
 
 				<div class="main-grids">
 
 					<div class="clearfix text-center">
 						<div class="col-sm-offset-2 col-sm-7" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-							<button id="btnPreview" class="btn btn-success has-tooltip">Preview</button>
+							<button id="btnPrevious" class="btn btn-success has-tooltip">Previous</button>
 							<button id="btnNext" class="btn btn-success has-tooltip">Next</button>
 						</div>
 					</div>
@@ -141,10 +141,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 					</div>
 				</div>
-
+				<div class="col-sm-11 clearfix text-center">                
+                    <button data-intro="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" data-step="4" title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" class="btn btn-success has-tooltip" id="btn_recommend"> Recommend</button>
+                </div>
 				
 				
-				<div class="clearfix" id="preview"> 
+				<div class="clearfix" id="previous"> 
 				
 				</div>
 			</div>
@@ -163,6 +165,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script language="javascript">
 	var oldDynamic = [];
 	var oldDynamicLength;
+	var RatedFilms = [];
+	var getRates = [];
 	$(window).on('hashchange', function () {
 
 		if (window.location.hash) {
@@ -184,7 +188,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 	$(document).ready(function () {
 		//$('.bxslider').bxSlider();
-		$('#btnPreview').click(function(){
+		if(oldDynamicLength == 1) {
+			$('#btnPrevious').prop('disabled',true);
+			$('#btnNext').prop('disabled',true);
+		}
+
+		$('#btnPrevious').click(function(){
 			oldDynamicLength--;
 			console.log("OldDynamic Length : " + oldDynamicLength);
 			if (oldDynamicLength < 1 ) oldDynamicLength = oldDynamic.length;
@@ -193,6 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			
 		});
+		$('#btn_recommend').click(getRecommend);
 
 		$('#btnNext').click(function(){
 			oldDynamicLength++;
@@ -225,27 +235,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		//introJs().start();
 		console.log({{Auth::id()}});
-		user = {{Auth::id()}};
-		$('#btn_recommend').click(function () {
-			//alert('click');
-			$.ajax({
-				url: 'http://10.12.11.161:8002/queries.json',
-				type: 'POST',
-				dataType: 'json',
-				contentType: 'application/json',
-				processData: false,
-				data: '{ "user":"' + user + '", "num": 1000, "ratingFlag": 0 }',
-				success: function (data) {
-					$('#irecommend').val(JSON.stringify(data));
-					console.log("Data:", JSON.stringify(data));
-					$('#frecommend').submit();
-				},
-				error: function (err) {
-					alert("Error: Cannot get data", err);
-				}
-			});
-		})
 });
+
+function getRecommend(){
+	user = {{Auth::id()}};
+	$.ajax({
+		url: 'http://10.12.11.161:8002/queries.json',
+		type: 'POST',
+		dataType: 'json',
+		contentType: 'application/json',
+		processData: false,
+		data: '{ "user":"' + user + '", "num": 1000, "ratingFlag": 0 }',
+		success: function (data) {
+			$('#irecommend').val(JSON.stringify(data));
+			console.log("Data:", JSON.stringify(data));
+			$('#frecommend').submit();
+		},
+		error: function (err) {
+			alert("Error: Cannot get data", err);
+		}
+	});
+}
 
 function getMovieDetail(id, row){
 	$.ajax({
@@ -264,44 +274,50 @@ function getMovieDetail(id, row){
 	});
 }
 
-function getHistory(){
-	$.ajax({
-		url: '<?=URL("/");?>/history',
-		type: 'get'
-	})
-	.done(function(data){
-		console.log(data);
-		$('#history').empty().html(data);
-		if($('#rate_count').val()<5){
-			$('#btn_recommend').prop('disabled', true);
-		}
-		else {
-			$('#btn_recommend').prop('disabled', false);
-		}
-	})
-	.fail(function(msg){
-		alert('No response from server',msg);
-			});
-	}
+function getHistory() {
+        $.ajax({
+                url: '<?=URL("/");?>/history',
+                type: 'get'
+            })
+            .done(function(data) {
+                console.log(data);
+                $('#history').empty().html(data);
+				$('.RatedFilm').each(function(){
+						console.log("Rated Film:" + $(this).val());
+						var id = $(this).val();
+						RatedFilms.push(id);
+						
+				});
 
-	function getHistory() {
-		$.ajax({
-				url: '<?=URL("/");?>/history',
-				type: 'get'
-			})
-			.done(function (data) {
-				console.log(data);
-				$('#history').empty().html(data);
-				if ($('#rate_count').val() < 5) {
-					$('#btn_recommend').prop('disabled', true);
-				} else {
-					$('#btn_recommend').prop('disabled', false);
+				$('.star-loop').each(function(){
+						console.log("get Rate:" + $(this).text());
+						var rate = $(this).html();
+						getRates.push(rate);
+						
+				});
+
+				for(var index = 0; index < RatedFilms.length; index++)
+				{
+					var text = `<span class="glyphicon glyphicon-star"></span>
+                                <sp`
+					// text = $('#'+RatedFilms[index]).text();
+					// console.log("Text:" + text);
+					console.log('infor: ','#p'+RatedFilms[index]);
+					$('#p'+RatedFilms[index]).empty().html('' + getRates[index]);
+					$('#'+RatedFilms[index]).css('color', 'blue');
 				}
-			})
-			.fail(function (msg) {
-				alert('No response from server', msg);
-			});
-	}
+                if ($('#rate_count').val() < 1) {
+                    $('#btn_recommend').prop('disabled', true);
+                    $('#btn_result').prop('disabled', true);
+                } else {
+                    $('#btn_recommend').prop('disabled', false);
+                    $('#btn_result').prop('disabled', false);
+                }
+            })
+            .fail(function(msg) {
+                alert('No response from server', msg);
+            });
+    }
 
 	function getDynamic(blackList) {
 		$.ajax({
@@ -316,6 +332,14 @@ function getHistory(){
 				$("#dynamic-list").empty().html(data);
 				oldDynamic.push(data);
 				oldDynamicLength = oldDynamic.length;
+				if(oldDynamicLength == 1) {
+					$('#btnPrevious').prop('disabled',true);
+					$('#btnNext').prop('disabled',true);
+				}
+				else{
+					$('#btnPrevious').prop('disabled',false);
+					$('#btnNext').prop('disabled',false);
+				}
 			})
 			.fail(function (msg) {
 				alert('No response from server', msg);
@@ -343,6 +367,18 @@ function getHistory(){
 					$(".item-lists").empty().html(data);
 
 					location.hash = page;
+
+					$('#btn_recommend').click(getRecommend);
+					for(var index = 0; index < RatedFilms.length; index++)
+				{
+					var text = `<span class="glyphicon glyphicon-star"></span>
+                                <sp`
+					// text = $('#'+RatedFilms[index]).text();
+					// console.log("Text:" + text);
+					console.log('infor: ','#p'+RatedFilms[index]);
+					$('#p'+RatedFilms[index]).empty().html('' + getRates[index]);
+					$('#'+RatedFilms[index]).css('color', 'blue');
+				}
 
 				})
 

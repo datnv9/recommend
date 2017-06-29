@@ -13,7 +13,7 @@ class Movie extends Model
     public function getCategory($video_id) {
         $movie = Movie::find($video_id);
         if ($movie) {
-            return $movie->Genre1.' '.$movie->Genre2.' '.$movie->Genre3;
+            return $movie->Genre1.'&nbsp;&nbsp;&nbsp;&nbsp;'.$movie->Genre2.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$movie->Genre3;
         }
         else {
             return '';

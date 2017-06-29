@@ -17,7 +17,8 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title"><?= html_entity_decode($movie->MovieName) ?></h4>
+			<b><h3 class="modal-title"><?= html_entity_decode($movie->MovieName) ?></h3></b>
+			<p class="author"><?php echo $movie->getCategory($movie->id);?></p>
 		</div>
 		<div class="modal-body">
 			<div class="container-fluid main">
@@ -32,6 +33,9 @@
 							<div class="col-sm-8">
 								<img id="img-main" class="img-responsive" src="https://image.tmdb.org/t/p/w500/<?php echo $movie->Image;?>"/>
 							</div>
+							<!--<div class="col-sm-3">
+								
+							</div>-->
 							<div class="col-sm-4">
 								<!-- BEGIN RATING -->
 								<h3>Rate this</h3> 
@@ -55,7 +59,11 @@
 								</div>
 								<!-- END RATING -->
 							</div>
+
+							
 						</div>
+						<h3>Overview</h3>
+							<p id="overview"></p>
 					</div>
 				</div>
 					</div>
@@ -80,6 +88,21 @@
 		var option = <?= $option ?>;
 		console.log('option:',option);
 		console.log('movie_id:',id_movielens);
+
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "https://api.themoviedb.org/3/movie/"+<?= $movie->TmdbId ?>+"?language=en-US&api_key=3fae97dd48b9aa091688c08d994c23f1",
+			"method": "GET",
+			"headers": {},
+			"data": "{}"
+		}
+
+		$.ajax(settings).done(function (response) {
+			console.log(response.overview);
+			$('#overview').text(response.overview);
+		});
+
 		$('.rate').click(function(){
 			var rate = $(this).attr("id");
 			$.ajax({

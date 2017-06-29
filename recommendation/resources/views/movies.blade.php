@@ -9,7 +9,7 @@
 				<input type="hidden" id="irecommend" name="irecommend" value=""/>
 			</form>
 		
-			<button target="_blank" data-intro="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" data-step="4" title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" class="btn btn-success has-tooltip" id="btn_recommend"> Recommend</button>
+			<button class="btn btn-success has-tooltip" id="btn_refresh"> Refresh</button>
 		
 		
 		</div>
@@ -29,6 +29,7 @@
 					<div class="resent-grid-info">
 						<h4><a onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo sprintf("%04d", $value->id).". ".$value->MovieName;?></a><br></h4>
 						<p class="author"><?php echo $value->getCategory($value->id);?></p>
+						<div class="stars" id="p<?=$value->id;?>"></div>
 					</div>
 				</div>
 			<?php endforeach; ?>
@@ -40,6 +41,7 @@
 					<div class="resent-grid-info">
 						<h4><a onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo sprintf("%04d", $value->id).". ".$value->MovieName;?></a><br></h4>
 						<p class="author"><?php echo $value->getCategory($value->id);?></p>
+						<div class="stars" id="p<?=$value->id;?>"><p></p></div>
 					</div>
 				</div>
 			<?php endforeach; ?>

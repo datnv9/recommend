@@ -9,7 +9,7 @@
   </ul>
 </div>-->
 <div class="clearfix col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-	<h3>Suggested Movies</h3>
+	<h3>More Movies</h3>
 </div>
 <div class="clearfix"></div>
 <?php foreach ($item as $value) :?>
@@ -20,6 +20,7 @@
 		<div class="resent-grid-info">
 			<h4><a onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo sprintf("%04d", $value->id).". ".$value->MovieName;?></a><br></h4>
 			<p class="author"><?php echo $value->getCategory($value->id);?></p>
+			<div class="stars" id="p<?=$value->id;?>"></div>
 		</div>
 	</div>
 <?php endforeach; ?>

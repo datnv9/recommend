@@ -61,7 +61,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="slogan" id="slogan">
                 <h4 class="slogan-title">CHƯƠNG TRÌNH GIỚI THIỆU PHIM TỰ ĐỘNG</h4>
-                <!--<h4>Bước 1: Hãy đánh giá các phim bạn đã xem bên dưới (càng nhiều càng tốt)</h4>-->
+                @if($option == 1)
+                    <h4>Bước 1: Hãy đánh giá các phim bạn đã xem bên dưới (càng nhiều càng tốt)</h4>
+                @else
+                    <h4>Bước 2: Sau đây là danh sách các phim được phần mềm giới thiệu dựa trên Bước 1. Mời bạn hãy đánh giá tiếp</h4>
+                @endif
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 
