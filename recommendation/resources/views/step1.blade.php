@@ -124,15 +124,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 
 				</div>
-
-
-				<div class="clearfix text-center">
-					<button id="btnPreview" class="btn btn-success has-tooltip">Preview</button>
-					<button id="btnNext" class="btn btn-success has-tooltip">Next</button>
-				</div>
+				
 
 				<div class="main-grids">
+
+					<div class="clearfix text-center">
+						<div class="col-sm-offset-2 col-sm-7" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
+							<button id="btnPreview" class="btn btn-success has-tooltip">Preview</button>
+							<button id="btnNext" class="btn btn-success has-tooltip">Next</button>
+						</div>
+					</div>
+					
 					<div class="clearfix top-grids" id="dynamic-list">
+
+						
 
 					</div>
 				</div>

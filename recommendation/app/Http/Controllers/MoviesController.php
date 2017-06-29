@@ -162,7 +162,6 @@ class MoviesController extends Controller
         $recommend = array();
         if (isset($_POST['irecommend'])) {
             $recommend = (array) json_decode($_POST['irecommend']);
-            $request->session()->put('option', '2');
             $request->session()->put('recommend', $recommend);
         }
         if (empty($request->session()->get('recommend'))) {
@@ -207,12 +206,13 @@ class MoviesController extends Controller
             $rated_count++;
         }
         $average_wrong = $total_wrong/$rated_count;
-        if ($average_wrong > 1) return "Khong the du doan! Do lech trung binh: ".$average_wrong;
+        if ($average_wrong > 1) return "<center><h1>KHÔNG THỂ DỰ ĐOÁN!</h1> <h1>Độ lệch trung bình: ".$average_wrong."</h1></center>";
         $data['item'] = $movie->wherein('MovieLensId', $i)->whereNotIn('MovieLensId', $blacklist)
                               // ->where(function ($query) use ($most_genre){
                               //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
                               // })
                               ->paginate(20);
+        $request->session()->put('option', '2');
         if ($request->ajax()) {
             return view('movies2', $data);
         }

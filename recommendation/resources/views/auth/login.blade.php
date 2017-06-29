@@ -8,11 +8,21 @@
                     <form id="form-login" class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Username</label>
+                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                            <label for="username" class="col-md-4 control-label">Username</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>                                @if ($errors->has('email'))
+                                <input id="username" type="text" class="form-control" name="username" value="" required autofocus>                                @if ($errors->has('email'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span> @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+
+                            <div class="col-md-6">
+                                <input id="email" type="hidden" class="form-control" name="email" value="{{ old('email') }}" required autofocus>                                @if ($errors->has('email'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span> @endif
@@ -61,7 +71,7 @@
 <script>
     function getEmail() {
         $("#password").val('12345678');
-        var name = $('#email').val();
+        var name = $('#username').val();
         if (name.indexOf('@') == -1) $('#email').val(name + '@email.com');
         $('#form-login').submit();
     }
