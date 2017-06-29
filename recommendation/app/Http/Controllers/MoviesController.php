@@ -36,13 +36,29 @@ class MoviesController extends Controller
 
     public function index(Request $request, Movie $movie, Rate $rate)
     {
-        $movies1 = $movie->whereBetween('id', [1, 500])->paginate(5);
-        $movies2 = $movie->where('id', '>', 500)->paginate(5);
+        $request->session()->put('option', '1');
+        $flag_refresh = $request->input('refresh');
+        $blacklist = array();
+        $r = array();
+        $result = $rate->where('user_id', Auth::id())->where('option', $request->session()->get('option'))->get();
+        if ($flag_refresh == 'true') {
+            foreach ($result as $value) {
+                $r[] = $value->video_id;
+            }
+            $result = $movie->findMany($r);
+            foreach ($result as $value) {
+                $blacklist[] = $value->MovieLensId;
+            }
+            $request->session()->put('blacklist1',$blacklist);
+        }
+        if ($request->session()->has('blacklist1')) $blacklist = $request->session()->get('blacklist1');
+        $movies1 = $movie->whereBetween('id', [1, 500])->whereNotIn('MovieLensId',$blacklist)->paginate(5);
+        $movies2 = $movie->where('id', '>', 500)->whereNotIn('MovieLensId',$blacklist)->paginate(5);
         if ($request->ajax()) {
             return view('movies', array("item1" => $movies1, "item2" => $movies2));
         }
             
-        $request->session()->put('option', '1');
+        
         if (!$request->session()->has('genres_table')) {
             $genres_table = [];
             $genres_table[] = array("genre"=>"Action","good" => 0, "bad" => 0);

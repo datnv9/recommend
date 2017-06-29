@@ -115,15 +115,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="item-lists">
 					@include('movies')
 				</div>
-
-				<!--<div class="page-header">
-					<div class="row">
-						<div class="col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-							<h3>Suggested Movies</h3>
-						</div>
-					</div>
-
-				</div>-->
 				
 
 				<div class="main-grids">
@@ -179,7 +170,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			} else {
 
-				getData(page);
+				getData(page, false);
 
 			}
 
@@ -192,6 +183,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('#btnPrevious').prop('disabled',true);
 			$('#btnNext').prop('disabled',true);
 		}
+
+		$('#btn_refresh').click(function(){
+			getData(1, true);
+		});
 
 		$('#btnPrevious').click(function(){
 			oldDynamicLength--;
@@ -346,7 +341,7 @@ function getHistory() {
 			});
 	}
 
-	function getData(page) {
+	function getData(page, refresh) {
 
 		$.ajax(
 
@@ -358,6 +353,8 @@ function getHistory() {
 
 					datatype: "html",
 
+					data: {'refresh': refresh}
+
 				})
 
 			.done(function (data)
@@ -368,7 +365,9 @@ function getHistory() {
 
 					location.hash = page;
 
-					$('#btn_recommend').click(getRecommend);
+					$('#btn_refresh').click(function(){
+						getData(1, true);
+					});
 					for(var index = 0; index < RatedFilms.length; index++)
 				{
 					var text = `<span class="glyphicon glyphicon-star"></span>
