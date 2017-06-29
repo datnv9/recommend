@@ -27,7 +27,7 @@
 						<a onclick="getMovieDetail(<?=$value->id;?>)"><img src="https://image.tmdb.org/t/p/w500/<?php echo $value->Image;?>" alt="" /></a>
 					</div>
 					<div class="resent-grid-info">
-						<h4><a onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo sprintf("%04d", $value->id).". ".$value->MovieName;?></a><br></h4>
+						<h4><a id="<?=$value->id;?>" onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo sprintf("%04d", $value->id).". ".$value->MovieName;?></a><br></h4>
 						<p class="author"><?php echo $value->getCategory($value->id);?></p>
 						<div class="stars" id="p<?=$value->id;?>"></div>
 					</div>
@@ -39,7 +39,7 @@
 						<a onclick="getMovieDetail(<?=$value->id;?>)"><img src="https://image.tmdb.org/t/p/w500/<?php echo $value->Image;?>" alt="" /></a>
 					</div>
 					<div class="resent-grid-info">
-						<h4><a onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo sprintf("%04d", $value->id).". ".$value->MovieName;?></a><br></h4>
+						<h4><a id="<?=$value->id;?>" onclick="getMovieDetail(<?=$value->id;?>)" class="title title-info"><?php echo sprintf("%04d", $value->id).". ".$value->MovieName;?></a><br></h4>
 						<p class="author"><?php echo $value->getCategory($value->id);?></p>
 						<div class="stars" id="p<?=$value->id;?>"><p></p></div>
 					</div>
