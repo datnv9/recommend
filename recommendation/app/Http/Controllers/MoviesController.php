@@ -37,6 +37,7 @@ class MoviesController extends Controller
     public function index(Request $request, Movie $movie, Rate $rate)
     {
         $request->session()->put('option', '1');
+        if (!$request->session()->has('rmse_setting')) $request->session()->put('rmse_setting','0');
         $flag_refresh = $request->input('refresh');
         $blacklist = array();
         $r = array();
@@ -153,6 +154,8 @@ class MoviesController extends Controller
         foreach ($rates as $value) {
             $r[] = $value->video_id;
         }
+        $rated_count = 0;
+        $total_wrong = 0;
         //$data['movie'] = $movie->findMany($r);
         $recommend = $request->session()->get('recommend');
         $list = $recommend['itemScores'];
@@ -165,8 +168,10 @@ class MoviesController extends Controller
                     //print_r($value->rating);
                 }
             }
+            $total_wrong += pow(2,floatval($item->getRate($item->id,'2'))-floatval($item->AverageRating));
+            $rated_count++;
         }
-        
+        $data['rmse'] = sqrt($total_wrong/$rated_count);
         $data['movie'] = $movie->findMany($r);
         return view('table', $data);
     }
@@ -222,7 +227,8 @@ class MoviesController extends Controller
             $rated_count++;
         }
         $average_wrong = sqrt($total_wrong/$rated_count);
-        if ($average_wrong > 2) return "<center><h1>KHÔNG THỂ DỰ ĐOÁN!</h1> <h1>Độ lệch trung bình: ".$average_wrong."</h1></center>";
+        $rmse_setting = $request->session()->get('rmse_setting');
+        if ($average_wrong > $rmse_setting) return view('setting',array('average_wrong'=>$average_wrong, 'rmse_setting' => $rmse_setting ));
         $data['item'] = $movie->wherein('MovieLensId', $i)->whereNotIn('MovieLensId', $blacklist)
                               // ->where(function ($query) use ($most_genre){
                               //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
@@ -373,6 +379,12 @@ class MoviesController extends Controller
             $data['row'] = $request->input('row');
             return view('detail',$data);
         }
+    }
+
+    public function setting(Request $request)
+    {
+        $request->session()->put('rmse_setting', $request->input('setting'));
+        return redirect()->route('index');
     }
 
     public function edit($id)

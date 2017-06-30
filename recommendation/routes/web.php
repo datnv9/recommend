@@ -21,6 +21,11 @@ Route::get('/history', [
     'uses' => 'MoviesController@getHistory'
 ]);
 
+Route::get('/setting', [
+    'middleware' => 'auth',
+    'uses' => 'MoviesController@setting'
+]);
+
 Route::get('/dynamic', [
     'middleware' => 'auth',
     'uses' => 'MoviesController@dynamic'

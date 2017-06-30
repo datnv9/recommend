@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 <!--
 Author: W3layouts
@@ -90,6 +90,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</tbody>
 			</table>
 		</div>
+    <div class"result">
+      <h3>Độ lệch chuẩn: RMSE = {{$rmse}}</h3>
+    </div>
 		<!-- TABLE END -->
 	</div>
   	<!--<div class="col-sm-3">
