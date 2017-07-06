@@ -62,11 +62,11 @@
 </style>
 
 <body>
-    <center><h1>KHÔNG THỂ DỰ ĐOÁN!</h1> <h1>Độ lệch chuẩn RMSE = {{$average_wrong}} </h1></center>
+    <center><h1>KHÔNG THỂ DỰ ĐOÁN!</h1> <h1>Độ lệch trung bình = {{$average_wrong}} </h1></center>
 
     <form id="form-setting" class="form-horizontal" role="form" method="GET" action="/setting">
         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-            <h4><label for="setting" class="col-sm-7 control-label">Độ lệch chuẩn có thể chấp nhận: </label></h4>
+            <h4><label for="setting" class="col-sm-7 control-label">Độ lệch trung bình có thể chấp nhận: </label></h4>
             <div class="input-group spinner">
                 <input name="setting" type="text" class="form-control" value="{{$rmse_setting}}">
                 <div class="input-group-btn-vertical">

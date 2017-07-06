@@ -83,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<?php foreach ($movie as $item) { ?>
 					<tr>
 						<td><?=$item->MovieName;?></td>
-						<td><?=$item->getRate($item->id,2);?></td>
+						<td><?=$item->getRate($item->id,2,$uid);?></td>
 						<td style="font-family: arial"><?=$item->AverageRating; ?></td>
 					</tr>
 					<?php } ?>
@@ -91,7 +91,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</table>
 		</div>
     <div class"result">
-      <h3>Độ lệch chuẩn: RMSE = {{$rmse}}</h3>
+      <h3>Độ lệch trung bình: {{$rmse}}</h3>
     </div>
 		<!-- TABLE END -->
 	</div>

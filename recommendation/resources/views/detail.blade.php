@@ -105,6 +105,7 @@
 
 		$('.rate').click(function(){
 			var rate = $(this).attr("id");
+			console.log("ratef: " + rate);
 			$.ajax({
 				method: "POST",
 				url: '<?=URL("/");?>/rate',
@@ -114,14 +115,14 @@
 				console.log('message:',msg);
 				if (msg != 'fail' && option == 1) {
 						$.ajax({
-								url:'http://10.12.11.161:8002/events.json?accessKey=VMdgKP6ujmoo4Ixp4htuVR_qK0_fJPnG986luvsfvvxfcJFQyLv9PMVQalzZML9n',
+								url:'http://10.8.0.6:8002/events.json?accessKey=VMdgKP6ujmoo4Ixp4htuVR_qK0_fJPnG986luvsfvvxfcJFQyLv9PMVQalzZML9n',
 								type: 'POST',
 								dataType: 'json',
 								contentType: 'application/json',
 								processData : false,
 								data : '{ "event" : "rate", "entityType" : "user", "entityId" : "'+user+'", "targetEntityType" : "item", "targetEntityId" : "'+id_movielens+'", "properties" : { "rating" : '+rate+'}}',
 								success: function(data){
-										console.log(JSON.stringify(data));		
+										console.log("data: " +JSON.stringify(data));		
 								},
 								error: function(){
 										alert("Cannot send data");		
