@@ -61,7 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand tippy-tt" title="Trở về trang chủ" href="index.php">
+				<a class="navbar-brand tippy-tt" title="Trở về trang chủ." href="index.php">
 					<h1><img width="50" src="images/vp9.jpg" alt="" /></h1>
 				</a>
 			</div>
@@ -78,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a href="{{ route('register') }}">Register</a></li>
 					@else
 					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle tippy-btn" title="Đăng xuất" onclick="event.preventDefault();
+						<button class="btn btn-default dropdown-toggle tippy-btn" title="Đăng xuất." onclick="event.preventDefault();
 									             document.getElementById('logout-form').submit();" type="button" id="menu1" data-toggle="dropdown"> {{ Auth::user()->name }}
   							<span class="caret"></span></button>
 						<ul class="dropdown-menu" id="logout-menu" role="menu" aria-labelledby="menu1">
@@ -97,9 +97,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- LOGOUT END -->
 				<div class="navbar-right top-search">
 					<img src="/images/13.png" id="help" class="helper-icon">
-					<form class="navbar-form navbar-right" tilte="Tìm kiếm phim tại đây, gõ vào tên phim hoặc thể loại" action="/search" method="get">
+					<form class="navbar-form navbar-right" action="/search" method="get">
 						<!--<a id="sampledata" class="help">Tìm kiếm phim tại đây</a>-->
-						<input type="text" class="form-control tippy-tt" title="Tìm kiếm phim tại đây, gõ vào tên phim hoặc thể loại" placeholder="Search..." name="key">
+						<input type="text" class="form-control tippy-tt" title="Tìm kiếm phim tại đây, gõ vào tên phim hoặc tên thể loại." placeholder="Search..." name="key">
 						<input type="submit" value=" ">
 					</form>
 				</div>
@@ -135,14 +135,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 					</div>
 					<br>
-					<div title="Đây là danh sách những bộ phim có thể bạn đã xem (gợi ý thêm), hãy chọn phim và đánh giá" class="clearfix top-grids" id="dynamic-list">
+					<div title="Đây là danh sách những bộ phim có thể bạn đã xem (gợi ý thêm), hãy chọn phim và đánh giá." class="clearfix top-grids" id="dynamic-list">
 
 						
 
 					</div>
 				</div>
 				<div class="col-sm-11 clearfix text-center">                
-                    <button title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" class="btn btn-success tippy-tt" id="btn_recommend"> Recommend</button>
+                    <button title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý." class="btn btn-success tippy-tt" data-sticky="true" id="btn_recommend"> Recommend</button>
                 </div>
 				
 				
@@ -151,7 +151,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 			<!-- LEFT END -->
-			<div id="history" title="Đây là danh sách các phim bạn đã đánh giá" data-position="left" data-followCursor="true" class="main col-lg-1 col-md-3 tippy-tt">
+			<div id="history" title="Đây là danh sách các phim bạn đã đánh giá." data-position="left" data-followCursor="true" class="main col-lg-1 col-md-3 tippy-tt">
 
 			</div>
 
@@ -261,7 +261,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			//oldDynamicLength++;
 		});
-		showHelp();
 		getDynamic();
 		getHistory();
 		$(document).on('click', '.pagination a', function (event) {
@@ -283,6 +282,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		//introJs().start();
 		console.log({{Auth::id()}});
+		showHelp();
 });
 
 function showHelp(){
