@@ -17,6 +17,10 @@ use App\History;
 
 use App\Rate;
 
+use GuzzleHttp\Exception\GuzzleException;
+
+use GuzzleHttp\Client;
+
 class MoviesController extends Controller
 {
     private static function compare($a, $b)
@@ -37,7 +41,8 @@ class MoviesController extends Controller
     public function index(Request $request, Movie $movie, Rate $rate)
     {
         $request->session()->put('option', '1');
-        if (!$request->session()->has('rmse_setting')) $request->session()->put('rmse_setting','0');
+        $request->session()->put('rmse_setting', '1.0');
+        if (!$request->session()->has('rmse_setting')) $request->session()->put('rmse_setting','1');
         $flag_refresh = $request->input('refresh');
         $blacklist = array();
         $r = array();
@@ -179,14 +184,16 @@ class MoviesController extends Controller
      //
     public function recommend(Request $request, Rate $rate, Movie $movie)
     {
-
+        $client = new Client([ 'timeout'  => 2.0]);
         $recommend = array();
-        if (isset($_POST['irecommend'])) {
-            $recommend = (array) json_decode($_POST['irecommend']);
+        $blacklist = array();
+        $uid = Auth::id();
+        if (empty($request->session()->get('recommend')) || isset($_POST['irecommend'])) {
+            $r = $client->request('POST', 'http://10.12.11.161:8002/queries.json', [
+                'json' => ['user' => (string)$uid, 'num' => 1000, 'ratingFlag' => 0]
+            ]);
+            $recommend = (array) json_decode($r->getBody());
             $request->session()->put('recommend', $recommend);
-        }
-        if (empty($request->session()->get('recommend'))) {
-            return redirect()->route('index');
         }
         $recommend = $request->session()->get('recommend');
         $list = $recommend['itemScores'];
@@ -194,8 +201,6 @@ class MoviesController extends Controller
         foreach ($list as $value) {
             $i[] = $value->item;
         }
-        $blacklist = array();
-        $uid = Auth::id();
         $history = $rate->where('user_id', $uid)->where('option', '1')->get();
         
         $genres = array();
@@ -299,6 +304,19 @@ class MoviesController extends Controller
         
         $genres_table = $request->session()->get('genres_table');
         $m = Movie::find($id);
+
+        $response = 'Can not send data!';
+        
+        if ($option == 1)
+        {
+            $rate_data = [ "event" => "rate", "entityType" => "user", "entityId" => (string) $uid, "targetEntityType" => "item", "targetEntityId" =>(string) $m->MovieLensId , "properties" => array("rating" => (float) $rating) ];
+            $client = new Client([ 'timeout'  => 2.0]);
+            $r = $client->request('POST', 'http://10.12.11.161:8002/events.json?accessKey=VMdgKP6ujmoo4Ixp4htuVR_qK0_fJPnG986luvsfvvxfcJFQyLv9PMVQalzZML9n', [
+                'json' => $rate_data
+            ]);
+            $response = $r->getBody();
+        }
+
         foreach ($genres_table as $genre) {
             if ($m->Genre1 == $genre['genre']) {
                 if ($rating > 3) {
@@ -323,12 +341,11 @@ class MoviesController extends Controller
             }
         }
         
-
         $update = $rate->where('user_id', '=', $uid)->where('video_id', '=', $id)->where('option', '=', $option)->get();
 
         if (count($update) != 0) {
             $rate->where('user_id', '=', $uid)->where('video_id', '=', $id)->where('option', '=', $option)->update(array('rating' =>$rating));
-            echo session()->get('pageSession');
+            echo "Updated! ".$response;
             return;
         }
 
@@ -338,10 +355,11 @@ class MoviesController extends Controller
             $rate->rating = $rating;
             $rate->option = $option;
             $rate->save();
-            echo session()->get('pageSession');
+            echo $response;
         } else {
-            echo "fail";
+            echo "Fail!";
         }
+        
     }
 
     public function search(Request $request, Movie $movie)
@@ -384,7 +402,7 @@ class MoviesController extends Controller
     public function setting(Request $request)
     {
         $request->session()->put('rmse_setting', $request->input('setting'));
-        return redirect()->route('index');
+        return redirect()->route('recommend');
     }
 
     public function edit($id)

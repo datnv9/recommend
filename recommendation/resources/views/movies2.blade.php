@@ -1,6 +1,6 @@
 <div class="page-header">
 	<div class="row">
-		<div class="col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
+		<div class="col-sm-4">
 			<h3>All Movies</h3>
 		</div>
 		<div class="col-sm-3"></div>
@@ -11,7 +11,7 @@
 	
 </div>		
 <div class="main-grids">
-	<div class="clearfix top-grids"  >
+	<div class="clearfix top-grids tippy-tt"  title="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá và so sánh với kết quả dự đoán">
 			<?php foreach ($item as $i => $value) :?>
 				<div class="resent-grid slider-top-grids" style="height: 33vh;">
 					<div class="resent-grid-img bxslider">

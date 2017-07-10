@@ -111,23 +111,7 @@
 				data: { id: <?=$movie->id?>, rate: rate,_token: "<?=csrf_token();?>" }
 			})
 			.done(function( msg ) {
-				console.log('message:',msg);
-				if (msg != 'fail' && option == 1) {
-						$.ajax({
-								url:'http://10.12.11.161:8002/events.json?accessKey=VMdgKP6ujmoo4Ixp4htuVR_qK0_fJPnG986luvsfvvxfcJFQyLv9PMVQalzZML9n',
-								type: 'POST',
-								dataType: 'json',
-								contentType: 'application/json',
-								processData : false,
-								data : '{ "event" : "rate", "entityType" : "user", "entityId" : "'+user+'", "targetEntityType" : "item", "targetEntityId" : "'+id_movielens+'", "properties" : { "rating" : '+rate+'}}',
-								success: function(data){
-										console.log(JSON.stringify(data));		
-								},
-								error: function(){
-										alert("Cannot send data");		
-								}	
-						});
-				}
+				console.log('Rating:', msg);
 				//alert( "Rating " + msg );
 				if (option == 1) {
 						var blacklist;

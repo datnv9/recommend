@@ -31,6 +31,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Custom Theme files -->
     <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ asset('js/tippy.min.js') }}"></script>
     <!-- fonts -->
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
@@ -38,9 +39,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/introjs.min.css" rel="stylesheet">-->
     <script type="text/javascript" src="js/modernizr.custom.min.js"></script>
     <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ asset('css/tippy.css') }}" rel="stylesheet" type="text/css" media="all" />
     <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/intro.min.js" type="text/javascript"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://andywer.github.io/jquery-dim-background/jquery.dim-background.min.js"></script>
     <!-- //fonts -->
 </head>
 
@@ -55,13 +58,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand tippy-tt" title="Trở về trang chủ"  href="index.php">
                     <h1><img width="50" src="images/vp9.jpg" alt="" /></h1>
                 </a>
             </div>
             <div class="slogan" id="slogan">
                 <h4 class="slogan-title">CHƯƠNG TRÌNH GIỚI THIỆU PHIM TỰ ĐỘNG</h4>
-                <h4>Bước 2: Sau đây là danh sách các phim được phần mềm giới thiệu dựa trên Bước 1. Mời bạn hãy đánh giá tiếp</h4>
+                <h4>Bước 2: Sau đây là danh sách các phim được phần mềm giới thiệu dựa trên Bước 1.</h4>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 
@@ -72,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <li><a href="{{ route('register') }}">Register</a></li>
                     @else
                     <li class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" onclick="event.preventDefault();
+                        <button class="btn btn-default dropdown-toggle tippy-btn" title="Đăng xuất" onclick="event.preventDefault();
 									             document.getElementById('logout-form').submit();" type="button" id="menu1" data-toggle="dropdown"> {{ Auth::user()->name }}
   							<span class="caret"></span></button>
                         <ul class="dropdown-menu" id="logout-menu" role="menu" aria-labelledby="menu1">
@@ -89,11 +92,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     @endif
                 </ul>
                 <!-- LOGOUT END -->
-                <img src="/images/13.png" id="help" class="helper-icon">
                 <div class="navbar-right top-search">
-                    <form class="navbar-form navbar-right" data-intro="Tìm kiếm phim tại đây" data-step="1" action="/search" method="get">
+                    <img src="/images/13.png" id="help" class="helper-icon">
+                    <form class="navbar-form navbar-right"  action="/search" method="get">
                         <!--<a id="sampledata" class="help">Tìm kiếm phim tại đây</a>-->
-                        <input type="text" class="form-control" title="Tìm kiếm phim tại đây	" placeholder="Search..." name="key">
+                        <input type="text" class="form-control tippy-tt" title="Tìm kiếm phim tại đây, gõ vào tên phim hoặc thể loại" placeholder="Search..." name="key">
                         <input type="submit" value=" ">
                     </form>
                 </div>
@@ -124,12 +127,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>-->
 
                 <div class="col-sm-12 clearfix text-center">                
-                    <button data-step="3" data-intro="Click vào nút này để hiển thị kết quả dự đoán" class="btn btn-success" id="btn_result" onclick="document.location.href='/result'">Result</button>
+                    <button title="Chọn khoảng 5 bộ phim và ấn Result để hiển thị bảng so sánh" class="btn btn-success tippy-tt" id="btn_result" onclick="document.location.href='/result'">Result</button>
                 </div>
             </div>
             
             <!-- LEFT END -->
-            <div id="history" class="main col-lg-1 col-md-3">
+            <div id="history" title="Đây là danh sách các phim bạn đã đánh giá" data-position="left" data-followCursor="true" class="main col-lg-1 col-md-3 tippy-tt">
 
             </div>
         </div>
@@ -140,10 +143,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- MAIN END -->
 </body>
 
+<script type="text/javascript" src="http://andywer.github.io/jquery-dim-background/jquery.dim-background.min.js"></script>
+
 </html>
 <script language="javascript">
 	var RatedFilms = [];
 	var getRates = [];
+    var tip1, tip2, tip, tip3, el1, el2, els, popper1, popper2, poppers =[];
     $(window).on('hashchange', function() {
 
         if (window.location.hash) {
@@ -165,7 +171,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
     $(document).ready(function() {
         //$('.bxslider').bxSlider();
-        getDynamic();
         getHistory();
         $(document).on('click', '.pagination a', function(event) {
 
@@ -182,29 +187,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             getData(page);
 
         });
+
+		tip3 = tippy('.tippy-btn', {
+			arraw: true,
+			size: 'big',
+			delay: [200,0]
+		})
+
+		tip = tippy('.tippy-tt', {
+			arrow: true,
+			size: 'big',
+			delay: [200,0]
+		});
+
+		els = document.querySelectorAll('.tippy-tt');
+
+		els.forEach(function(el){
+			poppers.push(tip.getPopperElement(el));
+		});
+
+        showHelp();
+
+		$('#help').hover(function(){
+			showHelp();
+		})
         //introJs().start();
-        console.log({{Auth::id()}});
-        user = {{Auth::id()}};
-        $('#btn_recommend').click(function() {
-            //alert('click');
-            $.ajax({
-                url: 'http://10.12.11.161:8002/queries.json',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                processData: false,
-                data: '{ "user":"' + user + '", "num": 500, "ratingFlag": 0 }',
-                success: function(data) {
-                    $('#irecommend').val(JSON.stringify(data));
-                    console.log("Data:", JSON.stringify(data));
-                    $('#frecommend').submit();
-                },
-                error: function(err) {
-                    alert("Error: Cannot get data", err);
-                }
-            });
-        })
     });
+
+    function showHelp(){
+
+        poppers.forEach(function(popper){
+            tip.show(popper);
+        });
+    }
 
     function getMovieDetail(id) {
         $.ajax({
@@ -231,7 +246,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 type: 'get'
             })
             .done(function(data) {
-                console.log(data);
+                //console.log(data);
                 $('#history').empty().html(data);
 				$('.RatedFilm').each(function(){
 						console.log("Rated Film:" + $(this).val());
@@ -268,24 +283,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 alert('No response from server', msg);
             });
     }
-
-    function getDynamic(blackList) {
-        $.ajax({
-                url: '<?=URL("/");?>/dynamic',
-                type: 'get',
-                data: {
-                    blacklist: blackList
-                },
-            })
-            .done(function(data) {
-                //console.log(data);
-                $("#dynamic-list").empty().html(data);
-            })
-            .fail(function(msg) {
-                alert('No response from server', msg);
-            });
-    }
-
     function getData(page) {
 
         $.ajax(

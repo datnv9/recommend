@@ -8,9 +8,6 @@
     <li><a href="#">JavaScript</a></li>
   </ul>
 </div>-->
-<div class="clearfix col-sm-4" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-	<h3>More Movies</h3>
-</div>
 <div class="clearfix"></div>
 <?php foreach ($item as $value) :?>
 	<div class="resent-grid slider-top-grids" style="height: 33vh;">

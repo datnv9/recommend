@@ -24,6 +24,9 @@
 </head>
 
 <style>
+*{
+  font-family: 'Open Sans', sans-serif
+}
 .spinner {
   width: 100px;
 }
@@ -62,30 +65,10 @@
 </style>
 
 <body>
-    <center><h1>KHÔNG THỂ DỰ ĐOÁN!</h1> <h1>Độ lệch chuẩn RMSE = {{$average_wrong}} </h1></center>
-
-    <form id="form-setting" class="form-horizontal" role="form" method="GET" action="/setting">
-        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-            <h4><label for="setting" class="col-sm-7 control-label">Độ lệch chuẩn có thể chấp nhận: </label></h4>
-            <div class="input-group spinner">
-                <input name="setting" type="text" class="form-control" value="{{$rmse_setting}}">
-                <div class="input-group-btn-vertical">
-                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <center><button type='submit' class='btn btn-default'>OK</button></center>
-    </form>
+    <center>
+      <h1>CẢNH BÁO!</h1> <h1>Độ lệch chuẩn RMSE = {{$average_wrong}} </h1>
+      <h4>Do dữ liệu training của bạn có độ lệch so với dữ liệu tiêu chuẩn lớn hơn <strong>1.0</strong></h4>
+      <h4>Kết quả dự đoán có thể sẽ không chính xác</h4> 
+      <a href='setting?setting=4' class='btn btn-default'>OK</a>
+    </center>
 </body>
-<script>
-(function ($) {
-  $('.spinner .btn:first-of-type').on('click', function() {
-    $('.spinner input').val( (parseFloat($('.spinner input').val()) + 0.1).toFixed(2));
-  });
-  $('.spinner .btn:last-of-type').on('click', function() {
-    $('.spinner input').val( (parseFloat($('.spinner input').val()) - 0.1).toFixed(2));
-  });
-})(jQuery);
-</script>

@@ -9,7 +9,7 @@
 				<input type="hidden" id="irecommend" name="irecommend" value=""/>
 			</form>
 		
-			<button class="btn btn-success has-tooltip" id="btn_refresh"> Refresh</button>
+			<button class="btn btn-success tippy-btn" title="Load lại danh sách phim" id="btn_refresh"> Refresh</button>
 		
 		
 		</div>
@@ -20,7 +20,7 @@
 	
 </div>		
 <div class="main-grids">
-	<div class="clearfix top-grids"  >
+	<div class="clearfix top-grids" id="all-movies" title="Đây là toàn bộ danh sách phim, hãy lướt qua các trang để tìm phim bạn đã xem" >
 			<?php foreach ($item1 as $i => $value) :?>
 				<div class="resent-grid slider-top-grids" style="height: 33vh;">
 					<div class="resent-grid-img bxslider">

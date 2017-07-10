@@ -13,7 +13,7 @@ body {
 body {
     background: #fff;
     font-size: 100%;
-    font-family: Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', 'Oswald', sans-serif;
 }
 
 body a {
@@ -40,6 +40,10 @@ nav.navbar.navbar-inverse.navbar-fixed-top {
     margin: 5px;
 }
 
+.tippy-tooltip {
+    font-size: 1.3em !important;
+}
+
 .stars span {
     color: yellow;
 }
@@ -58,8 +62,8 @@ a.navbar-brand h1 {
 form.navbar-form.navbar-right {
     margin-right: 1em;
     width: 50%;
-    float: left !important;
-    margin-left: 10em;
+    /*float: left !important;*/
+    margin-left: 1em;
     position: relative;
 }
 
@@ -686,7 +690,7 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
     padding: 0 5px 5px;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .resent-grid-info a.title {
@@ -708,7 +712,7 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
     color: #9E9E9E;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .resent-grid-info p.author a.author {
@@ -3329,14 +3333,9 @@ span.glyphicon.glyphicon-user {
 }
 
 .helper-icon {
-    width: 24px;
-    position: absolute;
-    right: 21%;
-    top: 35px;
-}
-
-.helper {
-    text-align: top;
+    width: 32px;
+    position: relative;
+    margin: 10px;
 }
 
 #searchicon {

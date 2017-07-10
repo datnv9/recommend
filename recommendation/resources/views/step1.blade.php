@@ -31,16 +31,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- Custom Theme files -->
 	<link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="{{ asset('js/tippy.min.js') }}"></script>
+	
+	<script type="text/javascript" src="http://andywer.github.io/jquery-dim-background/jquery.dim-background.min.js"></script>
+	<!-- <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
+	<link href="//code.jboxcdn.com/0.4.8/jBox.css" rel="stylesheet"> -->
 	<!-- fonts -->
 	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 	    rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 	<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Spectral" rel="stylesheet">
-	<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/introjs.min.css" rel="stylesheet">-->
 	<script type="text/javascript" src="js/modernizr.custom.min.js"></script>
 	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="{{ asset('css/tippy.css') }}" rel="stylesheet" type="text/css" media="all" />
 	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/intro.min.js" type="text/javascript"></script>-->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- //fonts -->
 </head>
@@ -57,7 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php">
+				<a class="navbar-brand tippy-tt" title="Trở về trang chủ" href="index.php">
 					<h1><img width="50" src="images/vp9.jpg" alt="" /></h1>
 				</a>
 			</div>
@@ -74,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a href="{{ route('register') }}">Register</a></li>
 					@else
 					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle" onclick="event.preventDefault();
+						<button class="btn btn-default dropdown-toggle tippy-btn" title="Đăng xuất" onclick="event.preventDefault();
 									             document.getElementById('logout-form').submit();" type="button" id="menu1" data-toggle="dropdown"> {{ Auth::user()->name }}
   							<span class="caret"></span></button>
 						<ul class="dropdown-menu" id="logout-menu" role="menu" aria-labelledby="menu1">
@@ -91,11 +95,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					@endif
 				</ul>
 				<!-- LOGOUT END -->
-				<img src="/images/13.png" id="help" class="helper-icon">
 				<div class="navbar-right top-search">
-					<form class="navbar-form navbar-right" data-intro="Tìm kiếm phim tại đây" data-step="1" action="/search" method="get">
+					<img src="/images/13.png" id="help" class="helper-icon">
+					<form class="navbar-form navbar-right" tilte="Tìm kiếm phim tại đây, gõ vào tên phim hoặc thể loại" action="/search" method="get">
 						<!--<a id="sampledata" class="help">Tìm kiếm phim tại đây</a>-->
-						<input type="text" class="form-control" title="Tìm kiếm phim tại đây	" placeholder="Search..." name="key">
+						<input type="text" class="form-control tippy-tt" title="Tìm kiếm phim tại đây, gõ vào tên phim hoặc thể loại" placeholder="Search..." name="key">
 						<input type="submit" value=" ">
 					</form>
 				</div>
@@ -115,25 +119,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="item-lists">
 					@include('movies')
 				</div>
-				
-
+				<div id="my-template-id" style="display: none;">
+					<p>Fun <strong>non-interactive HTML</strong> here</p>
+				</div>
 				<div class="main-grids">
+					<div class="clearfix col-sm-2">
+						<h3>More Movies</h3>
+					</div>
 
 					<div class="clearfix text-center">
-						<div class="col-sm-offset-2 col-sm-7" data-intro="Đây là danh sách movies, Bạn hãy chọn bộ phim bạn đã xem và đánh giá" data-step="2">
-							<button id="btnPrevious" class="btn btn-success has-tooltip">Previous</button>
-							<button id="btnNext" class="btn btn-success has-tooltip">Next</button>
+						<br>
+						<div class="col-sm-7">
+							<button title="Trở lại danh sách gợi ý trước" id="btnPrevious" class="btn btn-success tippy-btn">Previous</button>
+							<button title="Tiến tới danh sách gợi ý tiếp theo" id="btnNext" class="btn btn-success tippy-btn">Next</button>
 						</div>
 					</div>
-					
-					<div class="clearfix top-grids" id="dynamic-list">
+					<br>
+					<div title="Đây là danh sách những bộ phim có thể bạn đã xem (gợi ý thêm), hãy chọn phim và đánh giá" class="clearfix top-grids" id="dynamic-list">
 
 						
 
 					</div>
 				</div>
 				<div class="col-sm-11 clearfix text-center">                
-                    <button data-intro="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" data-step="4" title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" class="btn btn-success has-tooltip" id="btn_recommend"> Recommend</button>
+                    <button title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý" class="btn btn-success tippy-tt" id="btn_recommend"> Recommend</button>
                 </div>
 				
 				
@@ -142,7 +151,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 			<!-- LEFT END -->
-			<div id="history" class="main col-lg-1 col-md-3">
+			<div id="history" title="Đây là danh sách các phim bạn đã đánh giá" data-position="left" data-followCursor="true" class="main col-lg-1 col-md-3 tippy-tt">
 
 			</div>
 
@@ -158,6 +167,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	var oldDynamicLength;
 	var RatedFilms = [];
 	var getRates = [];
+	var tip1, tip2, tip, tip3, el1, el2, els, popper1, popper2, poppers =[];
 	$(window).on('hashchange', function () {
 
 		if (window.location.hash) {
@@ -179,6 +189,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 	$(document).ready(function () {
 		//$('.bxslider').bxSlider();
+
+		tip1 = tippy('#all-movies', {
+			arrow: true,
+			size: 'big',
+			delay: [200,0]
+		});
+
+		tip2 = tippy('#dynamic-list', {
+			arrow: true,
+			size: 'big',
+			delay: [200,0]
+		});
+
+		tip3 = tippy('.tippy-btn', {
+			arraw: true,
+			size: 'big',
+			delay: [200,0]
+		})
+
+		tip = tippy('.tippy-tt', {
+			arrow: true,
+			size: 'big',
+			delay: [200,0]
+		});
+
+		el1 = document.querySelector('#all-movies');
+		popper1 = tip1.getPopperElement(el1);
+
+		el2 = document.querySelector('#dynamic-list');
+		popper2 = tip2.getPopperElement(el2);
+
+		els = document.querySelectorAll('.tippy-tt');
+
+		els.forEach(function(el){
+			poppers.push(tip.getPopperElement(el));
+		});
+
+		$('#help').hover(function(){
+			showHelp();
+		})
+
+		//showHelp();
+
 		if(oldDynamicLength == 1) {
 			$('#btnPrevious').prop('disabled',true);
 			$('#btnNext').prop('disabled',true);
@@ -208,7 +261,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			//oldDynamicLength++;
 		});
-
+		showHelp();
 		getDynamic();
 		getHistory();
 		$(document).on('click', '.pagination a', function (event) {
@@ -232,24 +285,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		console.log({{Auth::id()}});
 });
 
-function getRecommend(){
-	user = {{Auth::id()}};
-	$.ajax({
-		url: 'http://10.12.11.161:8002/queries.json',
-		type: 'POST',
-		dataType: 'json',
-		contentType: 'application/json',
-		processData: false,
-		data: '{ "user":"' + user + '", "num": 1000, "ratingFlag": 0 }',
-		success: function (data) {
-			$('#irecommend').val(JSON.stringify(data));
-			console.log("Data:", JSON.stringify(data));
-			$('#frecommend').submit();
-		},
-		error: function (err) {
-			alert("Error: Cannot get data", err);
-		}
+function showHelp(){
+
+	poppers.forEach(function(popper){
+		tip.show(popper);
 	});
+
+	tip1.show(popper1);
+	tip2.show(popper2);
+}
+
+function getRecommend(){
+	$('#frecommend').submit();
+}
+
+function showToolTips(){
+	jQuery.noConflict();
+	$('.tooltips').dimBackground();
 }
 
 function getMovieDetail(id, row){
@@ -275,7 +327,7 @@ function getHistory() {
                 type: 'get'
             })
             .done(function(data) {
-                console.log(data);
+                //console.log(data);
                 $('#history').empty().html(data);
 				$('.RatedFilm').each(function(){
 						console.log("Rated Film:" + $(this).val());
