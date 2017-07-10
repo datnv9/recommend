@@ -264,8 +264,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				for(var index = 0; index < RatedFilms.length; index++)
 				{
-					var text = `<span class="glyphicon glyphicon-star"></span>
-                                <sp`
+					// var text = `<span class="glyphicon glyphicon-star"></span>
+                    //             <sp`
 					// text = $('#'+RatedFilms[index]).text();
 					// console.log("Text:" + text);
 					$('#p'+RatedFilms[index]).empty().html('' + getRates[index]);

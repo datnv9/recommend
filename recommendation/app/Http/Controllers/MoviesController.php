@@ -173,11 +173,12 @@ class MoviesController extends Controller
                     //print_r($value->rating);
                 }
             }
-            $total_wrong += pow(2,floatval($item->getRate($item->id,'2'))-floatval($item->AverageRating));
+            $total_wrong += pow(floatval($item->getRating($item->id,'2'))-floatval($item->AverageRating),2);
             $rated_count++;
         }
         $data['rmse'] = sqrt($total_wrong/$rated_count);
         $data['movie'] = $movie->findMany($r);
+        $data['uid'] = $uid;
         return view('table', $data);
     }
 
@@ -267,6 +268,7 @@ class MoviesController extends Controller
     {
         $uid =  Auth::id();
         $result = $rate->where('user_id', $uid)->where('option', $request->session()->get('option'))->get();
+        //var_dump($result);
         $r = array();
         foreach ($result as $value) {
             $r[] = $value->video_id;
@@ -274,6 +276,7 @@ class MoviesController extends Controller
         $data = array();
         $data['rate'] = $movie->findMany($r);
         $data['option'] = $request->session()->get('option');
+        $data['uid'] = $uid;
         return view('history', $data);
     }
 

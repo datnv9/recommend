@@ -336,8 +336,9 @@ function getHistory() {
 						
 				});
 
+				console.log("Start");
 				$('.star-loop').each(function(){
-						console.log("get Rate:" + $(this).text());
+						console.log("get Rate:" + $(this).html());
 						var rate = $(this).html();
 						getRates.push(rate);
 						
@@ -345,8 +346,8 @@ function getHistory() {
 
 				for(var index = 0; index < RatedFilms.length; index++)
 				{
-					var text = `<span class="glyphicon glyphicon-star"></span>
-                                <sp`
+					// var text = `<span class="glyphicon glyphicon-star"></span>
+                    //             <sp`
 					// text = $('#'+RatedFilms[index]).text();
 					// console.log("Text:" + text);
 					console.log('infor: ','#p'+RatedFilms[index]);

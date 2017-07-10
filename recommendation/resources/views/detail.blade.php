@@ -105,6 +105,7 @@
 
 		$('.rate').click(function(){
 			var rate = $(this).attr("id");
+			console.log("ratef: " + rate);
 			$.ajax({
 				method: "POST",
 				url: '<?=URL("/");?>/rate',

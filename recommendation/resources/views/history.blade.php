@@ -10,7 +10,7 @@
             <a onclick="getMovieDetail(<?=$mov->id;?>)">
                 <img class="media-object mov-img" src="https://image.tmdb.org/t/p/w500/<?= $mov->Image;?>">
             </a>
-            <small class="stars star-loop">	<?=$mov->getRate($mov->id,$option);?> </small>
+            <small class="stars star-loop">	<?=$mov->getRate($mov->id,$option,$uid);?> </small>
             <input type="hidden" class="RatedFilm" value="<?=$mov->id;?>"/>
             
         </div>
