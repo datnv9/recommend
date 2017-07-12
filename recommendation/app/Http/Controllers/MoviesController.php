@@ -233,7 +233,7 @@ class MoviesController extends Controller
             $rated_count++;
         }
         if ($rated_count !=0) $average_wrong = sqrt($total_wrong/$rated_count);
-        else $avarage_wrong = 0;
+        else $average_wrong = 0;
         $rmse_setting = $request->session()->get('rmse_setting');
         if ($average_wrong > $rmse_setting) return view('setting',array('average_wrong'=>$average_wrong, 'rmse_setting' => $rmse_setting ));
         $data['item'] = $movie->wherein('MovieLensId', $i)->whereNotIn('MovieLensId', $blacklist)

@@ -188,7 +188,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         });
 
-		tip3 = tippy('.tippy-btn', {
+		initHelp();
+
+		$('#help').hover(function(){
+			showHelp();
+		})
+        //introJs().start();
+    });
+
+    function showHelp(){
+
+        poppers.forEach(function(popper){
+            tip.show(popper);
+        });
+    }
+
+    function initHelp(){
+        if (poppers.length >0) poppers = [];
+        if (tip) tip.destroyAll();
+        if (tip3) tip3.destroyAll();
+        tip3 = tippy('.tippy-btn', {
 			arraw: true,
 			size: 'big',
 			delay: [200,0],
@@ -207,18 +226,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		els.forEach(function(el){
 			poppers.push(tip.getPopperElement(el));
 		});
-
-		$('#help').hover(function(){
-			showHelp();
-		})
-        //introJs().start();
-    });
-
-    function showHelp(){
-
-        poppers.forEach(function(popper){
-            tip.show(popper);
-        });
     }
 
     function getMovieDetail(id) {
@@ -278,6 +285,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $('#btn_recommend').prop('disabled', false);
                     $('#btn_result').prop('disabled', false);
                 }
+                initHelp();
             })
             .fail(function(msg) {
                 alert('No response from server', msg);
@@ -315,6 +323,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					$('#p'+RatedFilms[index]).empty().html('' + getRates[index]);
 					$('#'+RatedFilms[index]).css('color', 'blue');
 				}
+                initHelp();
 
                 })
 

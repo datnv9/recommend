@@ -185,6 +185,68 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	$(document).ready(function () {
 		//$('.bxslider').bxSlider();
 
+		//showHelp();
+		initHelp();
+		if(oldDynamicLength == 1) {
+			$('#btnPrevious').prop('disabled',true);
+			$('#btnNext').prop('disabled',true);
+		}
+
+		$('#btn_refresh').click(function(){
+			getData(1, true);
+		});
+
+		$('#btnPrevious').click(function(){
+			oldDynamicLength--;
+			console.log("OldDynamic Length : " + oldDynamicLength);
+			if (oldDynamicLength < 1 ) oldDynamicLength = oldDynamic.length;
+			
+			$("#dynamic-list").empty().html(oldDynamic[oldDynamicLength - 1]);
+			
+			
+		});
+		$('#btn_recommend').click(getRecommend);
+
+		$('#btnNext').click(function(){
+			oldDynamicLength++;
+			console.log("OldDynamic Length : " + oldDynamicLength);
+			if (oldDynamicLength >= oldDynamic.length ) oldDynamicLength = 0;
+			$("#dynamic-list").empty().html(oldDynamic[oldDynamicLength]);
+			
+			
+			//oldDynamicLength++;
+		});
+		getDynamic();
+		getHistory();
+		$('#help').hover(function(){
+			showHelp();
+		})
+		$(document).on('click', '.pagination a', function (event) {
+
+			$('li').removeClass('active');
+
+			$(this).parent('li').addClass('active');
+
+			event.preventDefault();
+
+
+			var myurl = $(this).attr('href');
+
+			var page = $(this).attr('href').split('page=')[1];
+
+
+			getData(page);
+
+		});
+		//introJs().start();
+		console.log({{Auth::id()}});
+});
+function initHelp(){
+	if (poppers.length > 0) poppers = [];
+	if(tip) tip.destroyAll();
+	if (tip1) tip1.destroyAll();
+	if (tip2) tip2.destroyAll();
+	if (tip3) tip3.destroyAll();
 		tip1 = tippy('#all-movies', {
 			arrow: true,
 			size: 'big',
@@ -224,64 +286,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		els.forEach(function(el){
 			poppers.push(tip.getPopperElement(el));
 		});
-
-		$('#help').hover(function(){
-			showHelp();
-		})
-
-		//showHelp();
-
-		if(oldDynamicLength == 1) {
-			$('#btnPrevious').prop('disabled',true);
-			$('#btnNext').prop('disabled',true);
-		}
-
-		$('#btn_refresh').click(function(){
-			getData(1, true);
-		});
-
-		$('#btnPrevious').click(function(){
-			oldDynamicLength--;
-			console.log("OldDynamic Length : " + oldDynamicLength);
-			if (oldDynamicLength < 1 ) oldDynamicLength = oldDynamic.length;
-			
-			$("#dynamic-list").empty().html(oldDynamic[oldDynamicLength - 1]);
-			
-			
-		});
-		$('#btn_recommend').click(getRecommend);
-
-		$('#btnNext').click(function(){
-			oldDynamicLength++;
-			console.log("OldDynamic Length : " + oldDynamicLength);
-			if (oldDynamicLength >= oldDynamic.length ) oldDynamicLength = 0;
-			$("#dynamic-list").empty().html(oldDynamic[oldDynamicLength]);
-			
-			
-			//oldDynamicLength++;
-		});
-		getDynamic();
-		getHistory();
-		$(document).on('click', '.pagination a', function (event) {
-
-			$('li').removeClass('active');
-
-			$(this).parent('li').addClass('active');
-
-			event.preventDefault();
-
-
-			var myurl = $(this).attr('href');
-
-			var page = $(this).attr('href').split('page=')[1];
-
-
-			getData(page);
-
-		});
-		//introJs().start();
-		console.log({{Auth::id()}});
-});
+}
 
 function showHelp(){
 
@@ -359,6 +364,7 @@ function getHistory() {
                     $('#btn_recommend').prop('disabled', false);
                     $('#btn_result').prop('disabled', false);
                 }
+				initHelp();
             })
             .fail(function(msg) {
                 alert('No response from server', msg);
@@ -386,6 +392,7 @@ function getHistory() {
 					$('#btnPrevious').prop('disabled',false);
 					$('#btnNext').prop('disabled',false);
 				}
+				initHelp();
 			})
 			.fail(function (msg) {
 				alert('No response from server', msg);
@@ -429,6 +436,7 @@ function getHistory() {
 					$('#p'+RatedFilms[index]).empty().html('' + getRates[index]);
 					$('#'+RatedFilms[index]).css('color', 'blue');
 				}
+				initHelp();
 
 				})
 

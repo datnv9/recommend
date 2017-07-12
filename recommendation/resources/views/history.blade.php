@@ -1,6 +1,6 @@
 <h5>History ({{$rate->count()}})</h5>
 <input id="rate_count" type="hidden" name="rate_count" value="{{$rate->count()}}"></input>
-<a class='btn btn-sm btn-danger tippy-tt' title="Xóa toàn bộ phim đã đánh giá" href='/deleteallhistory/<?=$option;?>'>Clear History</a>
+<a class='btn btn-sm btn-danger tippy-btn' title="Xóa toàn bộ phim đã đánh giá" href='/deleteallhistory/<?=$option;?>'>Clear History</a>
 <br>
 <br>
 <div>
