@@ -15,15 +15,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-	<script type="application/x-javascript">
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
 	<!-- bootstrap -->
 	<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all" />
 	<!-- //bootstrap -->
@@ -130,7 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 					</div>
 					<br>
-					<div title="Đây là danh sách những bộ phim có thể bạn đã xem (gợi ý thêm), hãy chọn phim và đánh giá." class="clearfix top-grids" id="dynamic-list">
+					<div data-position="left" title="Đây là danh sách những bộ phim có thể bạn đã xem (gợi ý thêm), hãy chọn phim và đánh giá." class="clearfix top-grids" id="dynamic-list">
 
 						
 
@@ -146,7 +137,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 			<!-- LEFT END -->
-			<div id="history" title="Đây là danh sách các phim bạn đã đánh giá." data-position="left" data-followCursor="true" class="main col-lg-1 col-md-3 tippy-tt">
+			<div id="history" class="main col-lg-1 col-md-3">
 
 			</div>
 
@@ -220,6 +211,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		getHistory();
 		$('#help').hover(function(){
 			showHelp();
+		});
+		$('#help').mouseleave(function(){
+			hideHelp();
 		})
 		$(document).on('click', '.pagination a', function (event) {
 
@@ -251,28 +245,32 @@ function initHelp(){
 			arrow: true,
 			size: 'big',
 			delay: [200,0],
-			trigger: 'manual'
+			trigger: 'manual',
+			theme: 'light'
 		});
 
 		tip2 = tippy('#dynamic-list', {
 			arrow: true,
 			size: 'big',
 			delay: [200,0],
-			trigger: 'manual'
+			trigger: 'manual',
+			theme: 'light'
 		});
 
 		tip3 = tippy('.tippy-btn', {
 			arraw: true,
 			size: 'big',
 			delay: [200,0],
-			trigger: 'manual'
+			trigger: 'manual',
+			theme: 'light'
 		})
 
 		tip = tippy('.tippy-tt', {
 			arrow: true,
 			size: 'big',
 			delay: [200,0],
-			trigger: 'manual'
+			trigger: 'manual',
+			theme: 'light'
 		});
 
 		el1 = document.querySelector('#all-movies');
@@ -288,8 +286,20 @@ function initHelp(){
 		});
 }
 
-function showHelp(){
+function hideHelp(){
 
+		$('.bg').remove();
+		poppers.forEach(function(popper){
+			tip.hide(popper);
+		});
+
+		tip1.hide(popper1);
+		tip2.hide(popper2);
+	
+}
+
+function showHelp(){
+	$('body').append('<div class="bg"></div>');
 	poppers.forEach(function(popper){
 		tip.show(popper);
 	});

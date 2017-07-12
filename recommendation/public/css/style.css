@@ -40,8 +40,19 @@ nav.navbar.navbar-inverse.navbar-fixed-top {
     margin: 5px;
 }
 
-.tippy-tooltip {
+.tippy-tooltip.light-theme {
     font-size: 1.3em !important;
+    background-color: white;
+}
+
+.bg {
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
 }
 
 .stars span {
@@ -3333,7 +3344,7 @@ span.glyphicon.glyphicon-user {
 }
 
 .helper-icon {
-    width: 32px;
+    width: 38px;
     position: relative;
     margin: 10px;
 }

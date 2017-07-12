@@ -41,7 +41,7 @@ class MoviesController extends Controller
     public function index(Request $request, Movie $movie, Rate $rate)
     {
         $request->session()->put('option', '1');
-        $request->session()->put('rmse_setting', '1.0');
+        $request->session()->put('rmse_setting', '1.5');
         if (!$request->session()->has('rmse_setting')) $request->session()->put('rmse_setting','1');
         $flag_refresh = $request->input('refresh');
         $blacklist = array();
@@ -240,7 +240,7 @@ class MoviesController extends Controller
                               // ->where(function ($query) use ($most_genre){
                               //         return $query->where('Genre1',$most_genre)->orWhere('Genre2',$most_genre)->orWhere('Genre3',$most_genre);
                               // })
-                              ->paginate(20);
+                              ->paginate(16);
         $request->session()->put('option', '2');
         if ($request->ajax()) {
             return view('movies2', $data);

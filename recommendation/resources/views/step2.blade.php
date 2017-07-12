@@ -15,15 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
 
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
     <!-- bootstrap -->
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all" />
     <!-- //bootstrap -->
@@ -132,7 +124,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             
             <!-- LEFT END -->
-            <div id="history" title="Đây là danh sách các phim bạn đã đánh giá." data-position="left" data-followCursor="true" class="main col-lg-1 col-md-3 tippy-tt">
+            <div id="history" class="main col-lg-1 col-md-3">
 
             </div>
         </div>
@@ -192,12 +184,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		$('#help').hover(function(){
 			showHelp();
+		});
+        $('#help').mouseleave(function(){
+			hideHelp();
 		})
         //introJs().start();
     });
 
-    function showHelp(){
+    function hideHelp(){
+        $('.bg').remove();
+		poppers.forEach(function(popper){
+			tip.hide(popper);
+		});
+    }
 
+    function showHelp(){
+        $('body').append('<div class="bg"></div>');
         poppers.forEach(function(popper){
             tip.show(popper);
         });
@@ -211,14 +213,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			arraw: true,
 			size: 'big',
 			delay: [200,0],
-            trigger: 'manual'
+            trigger: 'manual',
+            theme: 'light'
 		})
 
 		tip = tippy('.tippy-tt', {
 			arrow: true,
 			size: 'big',
 			delay: [200,0],
-            trigger: 'manual'
+            trigger: 'manual',
+            theme: 'light'
 		});
 
 		els = document.querySelectorAll('.tippy-tt');
