@@ -58,8 +58,8 @@ class MoviesController extends Controller
             $request->session()->put('blacklist1',$blacklist);
         }
         if ($request->session()->has('blacklist1')) $blacklist = $request->session()->get('blacklist1');
-        $movies1 = $movie->whereBetween('id', [1, 500])->whereNotIn('MovieLensId',$blacklist)->paginate(5);
-        $movies2 = $movie->where('id', '>', 500)->whereNotIn('MovieLensId',$blacklist)->paginate(5);
+        $movies1 = $movie->whereBetween('id', [1, 500])->whereNotIn('MovieLensId',$blacklist)->paginate(4);
+        $movies2 = $movie->where('id', '>', 500)->whereNotIn('MovieLensId',$blacklist)->paginate(4);
         if ($request->ajax()) {
             return view('movies', array("item1" => $movies1, "item2" => $movies2));
         }
@@ -130,7 +130,7 @@ class MoviesController extends Controller
             $data = array();
             $movies = array();
             foreach ($genres_table as $genre) {
-                if ($count == 10) {
+                if ($count == 8) {
                     break;
                 }
                 $condition = (($genre['good'] - $genre['bad']) > 0) ? '0' : '1';

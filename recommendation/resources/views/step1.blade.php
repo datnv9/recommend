@@ -32,11 +32,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="{{ asset('js/tippy.min.js') }}"></script>
-	
-	<script type="text/javascript" src="http://andywer.github.io/jquery-dim-background/jquery.dim-background.min.js"></script>
-	<!-- <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
-	<link href="//code.jboxcdn.com/0.4.8/jBox.css" rel="stylesheet"> -->
-	<!-- fonts -->
 	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 	    rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
@@ -193,25 +188,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		tip1 = tippy('#all-movies', {
 			arrow: true,
 			size: 'big',
-			delay: [200,0]
+			delay: [200,0],
+			trigger: 'manual'
 		});
 
 		tip2 = tippy('#dynamic-list', {
 			arrow: true,
 			size: 'big',
-			delay: [200,0]
+			delay: [200,0],
+			trigger: 'manual'
 		});
 
 		tip3 = tippy('.tippy-btn', {
 			arraw: true,
 			size: 'big',
-			delay: [200,0]
+			delay: [200,0],
+			trigger: 'manual'
 		})
 
 		tip = tippy('.tippy-tt', {
 			arrow: true,
 			size: 'big',
-			delay: [200,0]
+			delay: [200,0],
+			trigger: 'manual'
 		});
 
 		el1 = document.querySelector('#all-movies');
@@ -282,7 +281,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		//introJs().start();
 		console.log({{Auth::id()}});
-		showHelp();
 });
 
 function showHelp(){

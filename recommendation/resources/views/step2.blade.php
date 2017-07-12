@@ -191,13 +191,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		tip3 = tippy('.tippy-btn', {
 			arraw: true,
 			size: 'big',
-			delay: [200,0]
+			delay: [200,0],
+            trigger: 'manual'
 		})
 
 		tip = tippy('.tippy-tt', {
 			arrow: true,
 			size: 'big',
-			delay: [200,0]
+			delay: [200,0],
+            trigger: 'manual'
 		});
 
 		els = document.querySelectorAll('.tippy-tt');
@@ -205,8 +207,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		els.forEach(function(el){
 			poppers.push(tip.getPopperElement(el));
 		});
-
-        showHelp();
 
 		$('#help').hover(function(){
 			showHelp();
