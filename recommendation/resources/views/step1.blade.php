@@ -21,17 +21,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link href="css/dashboard.css" rel="stylesheet">
 	<!-- Custom Theme files -->
 	<link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="js/jquery.min.js"></script>
 	<script src="{{ asset('js/tippy.min.js') }}"></script>
-	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-	    rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-	<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Spectral" rel="stylesheet">
+	<!--<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	    rel='stylesheet' type='text/css'>-->
+	<!--<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Spectral" rel="stylesheet">-->
 	<script type="text/javascript" src="js/modernizr.custom.min.js"></script>
 	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="{{ asset('css/tippy.css') }}" rel="stylesheet" type="text/css" media="all" />
 	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 	<!-- //fonts -->
 </head>
 
@@ -85,7 +85,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<img src="/images/13.png" id="help" class="helper-icon">
 					<form class="navbar-form navbar-right" action="/search" method="get">
 						<!--<a id="sampledata" class="help">Tìm kiếm phim tại đây</a>-->
-						<input type="text" class="form-control tippy-tt" title="Tìm kiếm phim tại đây, gõ vào tên phim hoặc tên thể loại." placeholder="Search..." name="key">
+						<input type="text" id="search-form" class="form-control tippy-tt" title="Tìm kiếm phim tại đây, gõ vào tên phim hoặc tên thể loại." placeholder="Search..." name="key">
 						<input type="submit" value=" ">
 					</form>
 				</div>
@@ -119,17 +119,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<button title="Trở lại danh sách gợi ý trước" id="btnPrevious" class="btn btn-success tippy-btn">Previous</button>
 							<button title="Tiến tới danh sách gợi ý tiếp theo" id="btnNext" class="btn btn-success tippy-btn">Next</button>
 						</div>
+						<div class="col-sm-3 clearfix text-center">                
+                    		<button title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý." class="btn btn-success tippy-tt" data-sticky="true" id="btn_recommend"> Recommend</button>
+                		</div>
 					</div>
 					<br>
-					<div data-position="left" title="Đây là danh sách những bộ phim có thể bạn đã xem (gợi ý thêm), hãy chọn phim và đánh giá." class="clearfix top-grids" id="dynamic-list">
+					<div data-position="right" title="Đây là danh sách những bộ phim có thể bạn đã xem (gợi ý thêm), hãy chọn phim và đánh giá." class="clearfix top-grids" id="dynamic-list">
 
 						
 
 					</div>
 				</div>
-				<div class="col-sm-11 clearfix text-center">                
-                    <button title="Sau khi chọn khoảng 5 phim hãy click vào nút Recommend để nhận gợi ý." class="btn btn-success tippy-tt" data-sticky="true" id="btn_recommend"> Recommend</button>
-                </div>
 				
 				
 				<div class="clearfix" id="previous"> 
@@ -175,7 +175,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 	$(document).ready(function () {
 		//$('.bxslider').bxSlider();
-
+		if ($(document).width() < 480){
+			$('#help').remove();
+		}
 		//showHelp();
 		initHelp();
 		if(oldDynamicLength == 1) {
@@ -236,58 +238,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		console.log({{Auth::id()}});
 });
 function initHelp(){
-	if (poppers.length > 0) poppers = [];
-	if(tip) tip.destroyAll();
-	if (tip1) tip1.destroyAll();
-	if (tip2) tip2.destroyAll();
-	if (tip3) tip3.destroyAll();
-		tip1 = tippy('#all-movies', {
-			arrow: true,
-			size: 'big',
-			delay: [200,0],
-			trigger: 'manual',
-			theme: 'light'
-		});
+	if ($(document).width() > 480){
+		if (poppers.length > 0) poppers = [];
+		if(tip) tip.destroyAll();
+		if (tip1) tip1.destroyAll();
+		if (tip2) tip2.destroyAll();
+		if (tip3) tip3.destroyAll();
+			tip1 = tippy('#all-movies', {
+				arrow: true,
+				size: 'big',
+				delay: [200,0],
+				trigger: 'manual',
+				theme: 'light'
+			});
 
-		tip2 = tippy('#dynamic-list', {
-			arrow: true,
-			size: 'big',
-			delay: [200,0],
-			trigger: 'manual',
-			theme: 'light'
-		});
+			tip2 = tippy('#dynamic-list', {
+				arrow: true,
+				size: 'big',
+				delay: [200,0],
+				trigger: 'manual',
+				theme: 'light'
+			});
 
-		tip3 = tippy('.tippy-btn', {
-			arraw: true,
-			size: 'big',
-			delay: [200,0],
-			trigger: 'manual',
-			theme: 'light'
-		})
+			tip3 = tippy('.tippy-btn', {
+				arraw: true,
+				size: 'big',
+				delay: [200,0],
+				trigger: 'manual',
+				theme: 'light'
+			})
 
-		tip = tippy('.tippy-tt', {
-			arrow: true,
-			size: 'big',
-			delay: [200,0],
-			trigger: 'manual',
-			theme: 'light'
-		});
+			tip = tippy('.tippy-tt', {
+				arrow: true,
+				size: 'big',
+				delay: [200,0],
+				trigger: 'manual',
+				theme: 'light'
+			});
 
-		el1 = document.querySelector('#all-movies');
-		popper1 = tip1.getPopperElement(el1);
+			el1 = document.querySelector('#all-movies');
+			popper1 = tip1.getPopperElement(el1);
 
-		el2 = document.querySelector('#dynamic-list');
-		popper2 = tip2.getPopperElement(el2);
+			el2 = document.querySelector('#dynamic-list');
+			popper2 = tip2.getPopperElement(el2);
 
-		els = document.querySelectorAll('.tippy-tt');
+			els = document.querySelectorAll('.tippy-tt');
 
-		els.forEach(function(el){
-			poppers.push(tip.getPopperElement(el));
-		});
+			els.forEach(function(el){
+				poppers.push(tip.getPopperElement(el));
+			});
+	}
+	
 }
 
 function hideHelp(){
-
+	if ($(document).width() > 480){
 		$('.bg').remove();
 		poppers.forEach(function(popper){
 			tip.hide(popper);
@@ -295,17 +300,21 @@ function hideHelp(){
 
 		tip1.hide(popper1);
 		tip2.hide(popper2);
+	}
 	
 }
 
 function showHelp(){
-	$('body').append('<div class="bg"></div>');
-	poppers.forEach(function(popper){
-		tip.show(popper);
-	});
+	if ($(document).width() > 480){
+		$('body').append('<div class="bg"></div>');
+		poppers.forEach(function(popper){
+			tip.show(popper);
+		});
 
-	tip1.show(popper1);
-	tip2.show(popper2);
+		tip1.show(popper1);
+		tip2.show(popper2);
+	}
+	
 }
 
 function getRecommend(){

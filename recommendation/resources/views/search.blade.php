@@ -30,17 +30,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="css/dashboard.css" rel="stylesheet">
     <!-- Custom Theme files -->
     <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <!-- fonts -->
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!--<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Spectral" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Spectral" rel="stylesheet">-->
     <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/introjs.min.css" rel="stylesheet">-->
     <script type="text/javascript" src="js/modernizr.custom.min.js"></script>
     <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
     <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/intro.min.js" type="text/javascript"></script>-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <!-- //fonts -->
 </head>
 
@@ -93,7 +93,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     @endif
                 </ul>
                 <!-- LOGOUT END -->
-                <img src="/images/13.png" id="help" class="helper-icon">
                 <div class="navbar-right top-search">
                     <form class="navbar-form navbar-right" data-intro="Tìm kiếm phim tại đây" data-step="1" action="/search" method="get">
                         <!--<a id="sampledata" class="help">Tìm kiếm phim tại đây</a>-->

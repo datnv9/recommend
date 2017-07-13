@@ -84,7 +84,7 @@ form.navbar-form.navbar-right {
 
 .top-search form input[type="text"] {
     position: relative;
-    padding: 6px 43px 6px 12px;
+    /*padding: 6px 43px 6px 12px;*/
     outline: none;
     box-shadow: 0 0 0;
 }
@@ -3228,7 +3228,7 @@ span.glyphicon.glyphicon-user {
 }
 
 .slogan h4 {
-    font-size: 22px;
+    font-size: 1.2vw;
 }
 
 .slogan {
@@ -3250,8 +3250,7 @@ span.glyphicon.glyphicon-user {
 
 .navbar-right.top-search form {
     display: block;
-    width: 200px;
-    width: 280px;
+    width: 11vw;
     padding: 0;
 }
 
@@ -3323,7 +3322,9 @@ span.glyphicon.glyphicon-user {
     padding: 0;
     float: left;
 }
-
+.fixed-height{
+    height: 38vh !important;
+}
 .page-header .pagination {
     padding: 0;
     margin: 0;
@@ -3342,6 +3343,16 @@ span.glyphicon.glyphicon-user {
         display: block;
     }
 }
+@media (max-width: 768px){
+    .navbar-right.top-search form {
+        width: 100%;
+    }
+}
+@media (max-width: 768px){
+    .fixed-height {
+        height: auto !important;
+    }
+}
 
 .helper-icon {
     width: 38px;
@@ -3351,6 +3362,10 @@ span.glyphicon.glyphicon-user {
 
 #searchicon {
     top: 30%;
+}
+
+#search-form {
+    width: 100% !important;
 }
 
 .table-responsive {

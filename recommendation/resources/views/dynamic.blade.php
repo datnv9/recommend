@@ -10,7 +10,7 @@
 </div>-->
 <div class="clearfix"></div>
 <?php foreach ($item as $value) :?>
-	<div class="resent-grid slider-top-grids" style="height: 33vh;">
+	<div class="resent-grid slider-top-grids" style="">
 		<div class="resent-grid-img bxslider">
 			<a onclick="getMovieDetail(<?=$value->id;?>,2)"><img src="https://image.tmdb.org/t/p/w500/<?php echo $value->Image;?>" alt="" /></a>
 		</div>

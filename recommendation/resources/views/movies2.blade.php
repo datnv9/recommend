@@ -13,7 +13,7 @@
 <div class="main-grids">
 	<div class="clearfix top-grids tippy-tt"  title="Đây là danh sách phim, bạn hãy chọn bộ phim bạn đã xem, đánh giá và so sánh với kết quả dự đoán.">
 			<?php foreach ($item as $i => $value) :?>
-				<div class="resent-grid slider-top-grids" style="height: 33vh;">
+				<div id="fixed-h" class="fixed-height resent-grid slider-top-grids">
 					<div class="resent-grid-img bxslider">
 						<a  onclick="getMovieDetail(<?=$value->id;?>)"><img src="https://image.tmdb.org/t/p/w500/<?php echo $value->Image;?>" alt="" /></a>
 					</div>
@@ -27,3 +27,5 @@
 	</div>
 	
 </div>
+<script>
+</script>

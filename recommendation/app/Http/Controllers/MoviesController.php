@@ -376,7 +376,7 @@ class MoviesController extends Controller
         }
         $limit = 20;
         $offset = $page*$limit;
-        $data['item'] = $movie->orWhere('Genre1', 'like', '%'.$key.'%')->orWhere('Genre2', 'like', '%'.$key.'%')->orWhere('Genre3', 'like', '%'.$key.'%')->orWhere('MovieName', 'like', '%'.$key.'%')->skip($offset)->take($limit)->paginate(20);
+        $data['item'] = $movie->orWhere('Genre1', 'like', '%'.$key.'%')->orWhere('Genre2', 'like', '%'.$key.'%')->orWhere('Genre3', 'like', '%'.$key.'%')->orWhere('MovieName', 'like', '%'.$key.'%')->skip($offset)->take($limit)->paginate(16);
         $data['page'] = $page;
         $total = count($data['item']);
         $data['next'] = $offset < $total;

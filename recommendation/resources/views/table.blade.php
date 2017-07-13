@@ -21,12 +21,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
-<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<!-- fonts -->
-<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-<link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet">
 <script type="text/javascript" src="js/modernizr.custom.min.js"></script>    
 <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
@@ -51,14 +47,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           <h4> Kết quả đánh giá </h4>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-			<div class="header-top-right top-search">
-				<form class="navbar-form navbar-right" action="/search" method="post">
-                                        {{ csrf_field() }}	
-                                        <input type="text" class="form-control" placeholder="Search..." name="key">
-					<input type="submit" value=" " id="searchicon">
-				</form>
-			</div>
-        </div>
+
+                <!-- LOGOUT BEGIN -->
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Auth::guest())
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                    @else
+                    <li class="dropdown">
+                        <button class="btn btn-default dropdown-toggle tippy-btn" title="Đăng xuất." onclick="event.preventDefault();
+									             document.getElementById('logout-form').submit();" type="button" id="menu1" data-toggle="dropdown"> {{ Auth::user()->name }}
+  							<span class="caret"></span></button>
+                        <ul class="dropdown-menu" id="logout-menu" role="menu" aria-labelledby="menu1">
+                            <li>
+                                <a href="{{ route('logout') }}">
+									    Logout
+									</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+                </ul>
+                <!-- LOGOUT END -->
+               
+            </div>
         
         <div class="clearfix"> </div>
       </div>
@@ -95,27 +110,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 		<!-- TABLE END -->
 	</div>
-  	<!--<div class="col-sm-3">
-  		<?php foreach ($rate as $mov) { ?>
-        <div class="single-right-grids">
-                <div class="col-md-4 single-right-grid-left">
-                    <a href="/movies/<?= $mov->id;?>">
-                        <img class="media-object mov-img" src="https://image.tmdb.org/t/p/w500/<?= $mov->Image;?>">
-                    </a>
-                </div>
-                <div class="col-md-8 single-right-grid-right">
-                        <a href="/movies/<?= $mov->id;?>">
-                        <h4 class="media-title"><?= $mov->MovieName ?></h4>
-                        </a>
-                </div>
-        </div>
-        <?php } ?>
-  		
-  		
-  		
-  		
-  		
-  	</div>-->
+  
   		
 </div>
 </body>
